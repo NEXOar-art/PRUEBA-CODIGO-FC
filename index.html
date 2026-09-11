@@ -144,181 +144,46 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 .compat-yes { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.5); color: #4ade80; }
 .compat-maybe { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.5); color: #fbbf24; }
 .relax-notice { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; font-size: 11px; border-radius: 8px; padding: 8px 12px; }
-/* ================================================================ */
-/* [CAMBIO 20] ASISTENTE IA FLOTANTE                                 */
-/* ================================================================ */
-@keyframes aiPulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7), 0 0 18px rgba(14, 165, 233, 0.5); transform: scale(1); }
-  50% { box-shadow: 0 0 0 12px rgba(14, 165, 233, 0), 0 0 30px rgba(14, 165, 233, 0.8); transform: scale(1.05); }
-}
-.ai-fab {
-  position: fixed;
-  bottom: 24px;
-  right: 88px;
-  z-index: 60;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  animation: aiPulseGlow 2.8s ease-in-out infinite;
-  transition: transform 0.2s ease;
-}
+/* ============ ASISTENTE IA ============ */
+@keyframes aiPulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7), 0 0 18px rgba(14, 165, 233, 0.5); transform: scale(1); } 50% { box-shadow: 0 0 0 12px rgba(14, 165, 233, 0), 0 0 30px rgba(14, 165, 233, 0.8); transform: scale(1.05); } }
+.ai-fab { position: fixed; bottom: 24px; right: 88px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.2); animation: aiPulseGlow 2.8s ease-in-out infinite; transition: transform 0.2s ease; }
 .ai-fab:hover { transform: scale(1.1); animation-play-state: paused; }
 .ai-fab i { font-size: 1.6rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
-.ai-fab .ai-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #10b981;
-  color: white;
-  font-size: 8px;
-  font-weight: 900;
-  padding: 2px 5px;
-  border-radius: 9999px;
-  border: 2px solid #070709;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.ai-chat {
-  position: fixed;
-  bottom: 95px;
-  right: 20px;
-  z-index: 61;
-  width: 380px;
-  max-width: calc(100vw - 40px);
-  height: 560px;
-  max-height: calc(100vh - 140px);
-  background: #0a0a0c;
-  border: 1px solid rgba(14, 165, 233, 0.4);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(14, 165, 233, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transform: translateY(20px) scale(0.95);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.ai-chat.open {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-  pointer-events: auto;
-}
-.ai-chat-header {
-  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+.ai-fab .ai-badge { position: absolute; top: -4px; right: -4px; background: #10b981; color: white; font-size: 8px; font-weight: 900; padding: 2px 5px; border-radius: 9999px; border: 2px solid #070709; text-transform: uppercase; letter-spacing: 0.5px; }
+.ai-chat { position: fixed; bottom: 95px; right: 20px; z-index: 61; width: 380px; max-width: calc(100vw - 40px); height: 560px; max-height: calc(100vh - 140px); background: #0a0a0c; border: 1px solid rgba(14, 165, 233, 0.4); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(14, 165, 233, 0.2); display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+.ai-chat.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+.ai-chat-header { background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .ai-chat-header-left { display: flex; align-items: center; gap: 10px; }
-.ai-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
-  border: 2px solid rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-}
+.ai-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
 .ai-chat-title { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
 .ai-chat-subtitle { font-size: 10px; opacity: 0.85; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
 .ai-chat-subtitle .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981; animation: pulse-ring 2s infinite; }
 .ai-chat-close { background: rgba(255,255,255,0.15); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
 .ai-chat-close:hover { background: rgba(255,255,255,0.3); }
-.ai-chat-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px;
-  background: #070709;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.ai-chat-body { flex: 1; overflow-y: auto; padding: 14px; background: #070709; display: flex; flex-direction: column; gap: 10px; }
 .ai-chat-body::-webkit-scrollbar { width: 5px; }
 .ai-chat-body::-webkit-scrollbar-track { background: transparent; }
 .ai-chat-body::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 3px; }
 .ai-msg { display: flex; gap: 8px; animation: fadeIn 0.25s ease; }
 .ai-msg.bot { align-items: flex-start; }
 .ai-msg.user { flex-direction: row-reverse; }
-.ai-msg-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; flex-shrink: 0;
-}
+.ai-msg-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
 .ai-msg.bot .ai-msg-avatar { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: white; }
 .ai-msg.user .ai-msg-avatar { background: #e50914; color: white; }
-.ai-msg-bubble {
-  max-width: 85%;
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  line-height: 1.5;
-  word-wrap: break-word;
-}
-.ai-msg.bot .ai-msg-bubble {
-  background: #121215;
-  border: 1px solid #22222a;
-  color: #e5e7eb;
-  border-top-left-radius: 4px;
-}
-.ai-msg.user .ai-msg-bubble {
-  background: linear-gradient(135deg, #e50914, #b80710);
-  color: white;
-  border-top-right-radius: 4px;
-}
+.ai-msg-bubble { max-width: 85%; padding: 10px 12px; border-radius: 12px; font-size: 12px; line-height: 1.5; word-wrap: break-word; }
+.ai-msg.bot .ai-msg-bubble { background: #121215; border: 1px solid #22222a; color: #e5e7eb; border-top-left-radius: 4px; }
+.ai-msg.user .ai-msg-bubble { background: linear-gradient(135deg, #e50914, #b80710); color: white; border-top-right-radius: 4px; }
 .ai-msg-bubble strong { color: #0ea5e9; }
 .ai-msg.user .ai-msg-bubble strong { color: #fbbf24; }
 .ai-typing { display: inline-flex; gap: 4px; padding: 4px 0; }
-.ai-typing span {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #0ea5e9;
-  animation: typing 1.4s infinite ease-in-out;
-}
+.ai-typing span { width: 6px; height: 6px; border-radius: 50%; background: #0ea5e9; animation: typing 1.4s infinite ease-in-out; }
 .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
 .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-8px); opacity: 1; }
-}
-.ai-quick-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-}
-.ai-quick-btn {
-  background: rgba(14, 165, 233, 0.1);
-  border: 1px solid rgba(14, 165, 233, 0.4);
-  color: #7dd3fc;
-  font-size: 10px;
-  padding: 5px 10px;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  font-weight: 600;
-}
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-8px); opacity: 1; } }
+.ai-quick-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ai-quick-btn { background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.4); color: #7dd3fc; font-size: 10px; padding: 5px 10px; border-radius: 9999px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 600; }
 .ai-quick-btn:hover { background: rgba(14, 165, 233, 0.25); color: white; border-color: #0ea5e9; }
-.ai-product-card {
-  background: #121215;
-  border: 1px solid #22222a;
-  border-radius: 8px;
-  padding: 8px;
-  margin-top: 6px;
-  display: flex;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
+.ai-product-card { background: #121215; border: 1px solid #22222a; border-radius: 8px; padding: 8px; margin-top: 6px; display: flex; gap: 8px; cursor: pointer; transition: all 0.2s; }
 .ai-product-card:hover { border-color: #0ea5e9; background: #1a1a20; }
 .ai-product-card img { width: 56px; height: 56px; border-radius: 6px; object-fit: cover; flex-shrink: 0; border: 1px solid #22222a; }
 .ai-product-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
@@ -326,80 +191,21 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 .ai-product-meta { font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.3px; }
 .ai-product-price { font-family: 'Chakra Petch', sans-serif; font-weight: 900; font-size: 13px; color: #10b981; }
 .ai-product-actions { display: flex; gap: 4px; margin-top: 4px; }
-.ai-product-actions button {
-  flex: 1; font-size: 9px; font-weight: 700; text-transform: uppercase;
-  padding: 4px 6px; border-radius: 4px; cursor: pointer; border: none;
-  transition: all 0.15s; letter-spacing: 0.3px;
-}
+.ai-product-actions button { flex: 1; font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: none; transition: all 0.15s; letter-spacing: 0.3px; }
 .ai-btn-view { background: #22222a; color: #e5e7eb; }
 .ai-btn-view:hover { background: #0ea5e9; color: white; }
 .ai-btn-add { background: #e50914; color: white; }
 .ai-btn-add:hover { background: #b80710; }
-.ai-explain {
-  margin-top: 6px;
-  padding: 6px 8px;
-  background: rgba(14, 165, 233, 0.08);
-  border-left: 2px solid #0ea5e9;
-  font-size: 10px;
-  color: #9ca3af;
-  border-radius: 0 4px 4px 0;
-  line-height: 1.4;
-}
-.ai-explain .match-tag {
-  display: inline-block; background: rgba(14, 165, 233, 0.15);
-  color: #7dd3fc; font-size: 9px; padding: 1px 5px; border-radius: 3px;
-  margin: 1px 2px; font-weight: 700; text-transform: uppercase;
-}
-.ai-input-bar {
-  border-top: 1px solid #22222a;
-  background: #0a0a0c;
-  padding: 10px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.ai-input-bar input {
-  flex: 1;
-  background: #121215;
-  border: 1px solid #22222a;
-  color: white;
-  padding: 9px 12px;
-  border-radius: 9999px;
-  font-size: 12px;
-  outline: none;
-  transition: border-color 0.2s;
-}
+.ai-explain { margin-top: 6px; padding: 6px 8px; background: rgba(14, 165, 233, 0.08); border-left: 2px solid #0ea5e9; font-size: 10px; color: #9ca3af; border-radius: 0 4px 4px 0; line-height: 1.4; }
+.ai-explain .match-tag { display: inline-block; background: rgba(14, 165, 233, 0.15); color: #7dd3fc; font-size: 9px; padding: 1px 5px; border-radius: 3px; margin: 1px 2px; font-weight: 700; text-transform: uppercase; }
+.ai-input-bar { border-top: 1px solid #22222a; background: #0a0a0c; padding: 10px; display: flex; gap: 6px; align-items: center; }
+.ai-input-bar input { flex: 1; background: #121215; border: 1px solid #22222a; color: white; padding: 9px 12px; border-radius: 9999px; font-size: 12px; outline: none; transition: border-color 0.2s; }
 .ai-input-bar input:focus { border-color: #0ea5e9; }
 .ai-input-bar input::placeholder { color: #6b7280; }
-.ai-input-bar button {
-  background: linear-gradient(135deg, #0ea5e9, #6366f1);
-  color: white;
-  border: none;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s;
-  flex-shrink: 0;
-}
+.ai-input-bar button { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; flex-shrink: 0; }
 .ai-input-bar button:hover { transform: scale(1.08); }
-.ai-input-bar button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.ai-powered-badge {
-  font-size: 9px;
-  color: #7dd3fc;
-  text-align: center;
-  padding: 4px;
-  background: rgba(14, 165, 233, 0.05);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-@media (max-width: 480px) {
-  .ai-chat { right: 10px; left: 10px; width: auto; bottom: 85px; height: calc(100vh - 100px); }
-  .ai-fab { right: 78px; width: 52px; height: 52px; }
-}
+.ai-powered-badge { font-size: 9px; color: #7dd3fc; text-align: center; padding: 4px; background: rgba(14, 165, 233, 0.05); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+@media (max-width: 480px) { .ai-chat { right: 10px; left: 10px; width: auto; bottom: 85px; height: calc(100vh - 100px); } .ai-fab { right: 78px; width: 52px; height: 52px; } }
 </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
@@ -645,12 +451,10 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 </div>
 </footer>
 <a href="https://wa.me/5493543546389?text=Hola!%20Vengo%20desde%20la%20web%20FC%20RACING%20y%20quisiera%20consultar%20por%20un%20producto" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-50 bg-green-600 hover:bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl whatsapp-pulse transition-transform hover:scale-110" aria-label="Contactar por WhatsApp"><i class="fa-brands fa-whatsapp text-3xl"></i></a>
-<!-- [CAMBIO 20] BOTÓN FLOTANTE ASISTENTE IA -->
 <button id="aiFab" onclick="toggleAIChat()" class="ai-fab" title="Asistente IA de Repuestos" aria-label="Abrir asistente IA">
 <i class="fa-solid fa-robot"></i>
 <span class="ai-badge">IA</span>
 </button>
-<!-- [CAMBIO 20] PANEL DE CHAT ASISTENTE IA -->
 <div id="aiChat" class="ai-chat">
 <div class="ai-chat-header">
 <div class="ai-chat-header-left">
@@ -878,7 +682,7 @@ const DASHBOARD_ACCESS_CODE = 'TABLERO3112';
 const DEFAULT_BANNER_MESSAGES = ['ENVÍOS A TODO EL PAÍS • COMPRA DIRECTA SIN REGISTRO O CUENTA','HOY 5% EN TU COMPRA MEDIANTE EL CARRITO DE COMPRAS','DIRECCIÓN DEL LOCAL: Ernesto Negrete 27 Esq. Alfredo Palacios','WHATSAPP: 3543546389'];
 const BANNER_ICONS = ['fa-solid fa-truck-fast','fa-solid fa-tags','fa-solid fa-location-dot','fa-brands fa-whatsapp','fa-solid fa-bullhorn','fa-solid fa-bolt'];
 const SCORE_WEIGHTS = { codigo:100, oem:100, sku:100, modelo:50, marcaVeh:40, tipo:35, cilindrada:25, anio:25, marcaProd:20, keyword:10, sinonimo:8, parcial:5, stock:5, frase:40 };
-const STOPWORDS = new Set(['de','la','el','los','las','para','con','sin','y','o','en','por','del','al','un','una','que','se','mi','su','the','of','for','a','e','u','necesito','quiero','busco','tenes','tenés','tenes','algo','alguna','algún','algún','dame','mostrame','decime']);
+const STOPWORDS = new Set(['de','la','el','los','las','para','con','sin','y','o','en','por','del','al','un','una','que','se','mi','su','the','of','for','a','e','u','necesito','quiero','busco','tenes','tenés','algo','alguna','algún','dame','mostrame','decime']);
 const VEHICLE_BRANDS = ['HONDA','YAMAHA','KAWASAKI','SUZUKI','KTM','BMW','HUSQVARNA','GAS GAS','BETA','TRIUMPH','DUCATI','APRILIA','BENELLI','BAJAJ','CAN-AM','POLARIS','KOVE','CF MOTO','ROYAL ENFIELD','MOTO GUZZI','PIAGGIO','VESPA','SYM','MV AGUSTA','HARLEY DAVIDSON'];
 const BRAND_ALIASES = { 'YAM':'YAMAHA','YAMAHA MOTOR':'YAMAHA','HONDA MOTO':'HONDA','HONDA MOTOR':'HONDA','KAWA':'KAWASAKI','KTM AG':'KTM','HUSQ':'HUSQVARNA','HUSABERG':'HUSQVARNA','GASGAS':'GAS GAS','BMW MOTORRAD':'BMW','SUZ':'SUZUKI','ROYAL':'ROYAL ENFIELD' };
 const VEHICLE_MODELS = {
@@ -1079,7 +883,6 @@ let from, to;
 if(a > b){ from = 1900+a; to = 2000+b; } else { from = 2000+a; to = 2000+b; }
 if(from >= 1950 && to <= 2040) ent.anios.push([from,to]);
 }
-/* [CAMBIO 20] año suelto tipo "2020" */
 const yearSingle = /\b(19[5-9]\d|20[0-2]\d)\b/g;
 while((m = yearSingle.exec(cleaned))){
 const y = parseInt(m[1]);
@@ -1232,7 +1035,7 @@ else if(group === 'SUBCATEGORIA'){ if(e.subcategory) dyn.add(e.subcategory); }
 else if(group === 'MARCA') dyn.add(e.marca);
 else if(group === 'STOCK') dyn.add(stockLabel(e));
 else if(group === 'COMPAT'){ (e.compatibilidad||'').split(',').forEach(c => { c=c.trim(); if(c) dyn.add(c); }); }
-else if(group === 'UBICACION'){ /* solo canónicas */ }
+else if(group === 'UBICACION'){ }
 else { (e.atributos[group]||'').split(',').forEach(c => { c=c.trim(); if(c) dyn.add(c.toUpperCase()); }); }
 });
 }
@@ -1597,7 +1400,7 @@ updateCartUI(); toggleCartDrawer(true);
 function removeFromCart(codigo){ CART = CART.filter(item => item.codigo !== codigo); updateCartUI(); }
 function updateCartUI(){
 const cartItemsList = document.getElementById('cartItemsList'); const cartCountBadge = document.getElementById('cartCountBadge'); const cartTotalItems = document.getElementById('cartTotalItems'); const cartSubtotalPrice = document.getElementById('cartSubtotalPrice'); const cartDiscountAmount = document.getElementById('cartDiscountAmount'); const cartTotalPrice = document.getElementById('cartTotalPrice'); const navCartTotal = document.getElementById('navCartTotal');
-const totalItems = CART.reduce((s,i) => s + i.qty, 0); const subtotal = CART.reduce((s,i) => s + (i.precio * i.qty), 0); const discount = subtotal * 0.05; const totalFinal = subtotal - discount;
+const totalItems = CART.reduce((sum, item) => sum + item.qty, 0); const subtotal = CART.reduce((sum, item) => sum + (item.precio * item.qty), 0); const discount = subtotal * 0.05; const totalFinal = subtotal - discount;
 if(cartCountBadge) cartCountBadge.textContent = totalItems; if(cartTotalItems) cartTotalItems.textContent = totalItems; if(cartSubtotalPrice) cartSubtotalPrice.textContent = formatPrice(subtotal); if(cartDiscountAmount) cartDiscountAmount.textContent = '- ' + formatPrice(discount); if(cartTotalPrice) cartTotalPrice.textContent = formatPrice(totalFinal); if(navCartTotal) navCartTotal.textContent = formatPrice(totalFinal);
 if(CART.length === 0){ cartItemsList.innerHTML = '<p class="text-center text-gray-500 text-xs py-8">Tu carrito está vacío. Agregá productos para generar tu pedido.</p>'; return; }
 cartItemsList.innerHTML = CART.map(item => '<div class="bg-brand-card p-3 rounded-lg border border-brand-border flex items-center space-x-3"><img src="'+item.imagen+'" onerror="this.src=\''+FALLBACK_IMG+'\'" class="w-12 h-12 object-cover rounded border border-brand-border shrink-0"><div class="flex-grow min-w-0"><div class="flex items-center justify-between"><span class="text-[10px] text-gray-400 font-mono">COD: '+item.codigo+'</span><span class="text-xs font-bold text-brand-red">'+formatPrice(item.precio * item.qty)+'</span></div><h5 class="text-xs font-bold text-white truncate mt-0.5">'+escapeHTML(item.descripcion)+'</h5><div class="flex items-center space-x-2 mt-1"><span class="text-[10px] text-gray-400">Cant: '+item.qty+'</span></div></div><button onclick="removeFromCart(\''+escapeAttr(item.codigo)+'\')" class="text-gray-500 hover:text-brand-red text-sm p-1 transition-colors"><i class="fa-regular fa-trash-can"></i></button></div>').join('');
@@ -1622,7 +1425,7 @@ document.getElementById('pdfSubtotal').textContent = formatReceiptPrice(subtotal
 document.getElementById('pdfDiscount').textContent = '- ' + formatReceiptPrice(discount);
 document.getElementById('pdfTotalAmount').textContent = 'TOTAL FINAL COMPRA: ' + formatReceiptPrice(totalFinal);
 document.getElementById('pdfTableBody').innerHTML = CART.map(item => '<tr><td style="padding: 10px 12px; color: #333333;">'+item.qty+'x</td><td style="padding: 10px 12px; color: #333333;">'+escapeHTML(item.descripcion)+'<br><span style="font-size: 10px; color: #999999; font-family: monospace;">COD: '+escapeHTML(item.codigo)+'</span></td><td style="padding: 10px 12px; text-align: right; color: #333333;">'+formatReceiptPrice(item.precio)+'</td><td style="padding: 10px 12px; text-align: right; color: #333333; font-weight: bold;">'+formatReceiptPrice(item.precio * item.qty)+'</td></tr>').join('');
-const sepLine = '▬▬▬▬▬▬▬▬';
+const sepLine = '▬▬▬▬▬▬';
 const thinLine = '─────────────────────────────────────────';
 let message = '🏁 *FC RACING*\n_High Performance Off-Road Store_\n' + sepLine + '\n📅 Fecha: ' + orderDate + '\n🧾 *RECIBO OFICIAL DE COMPRA N° ' + orderNum + '*\n' + sepLine + '\n\n*DATOS DEL CLIENTE & ENVÍO:*\n👤 *Nombre y Apellido:* ' + name + '\n📍 *Ciudad y Dirección:* ' + address + '\n📧 *Correo Electrónico:* ' + email + '\n💳 *Método de Pago:* ' + payment + '\n\n🛒 *DETALLE DE PRODUCTOS:*\n*Cant*  |  *Descripción (COD)*  |  *Precio Unit.*  |  *Subtotal*\n' + thinLine + '\n';
 CART.forEach(item => { message += item.qty + 'x  |  ' + item.descripcion + ' (' + item.codigo + ')  |  ' + formatReceiptPrice(item.precio) + '  |  *' + formatReceiptPrice(item.precio * item.qty) + '*\n'; });
@@ -1674,7 +1477,7 @@ if(modelMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid
 if(catMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-folder mr-1"></i> Categorías</div>' + catMatches.map(c => '<div class="ac-suggestion" onclick="selectAutocompleteCategory(\''+escapeAttr(c)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-folder text-brand-red text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(c,query)+'</span></div><span class="text-[10px] text-gray-500">'+ENRICHED.filter(p => p.category === c).length+' prod.</span></div>').join(''); }
 if(subMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-layer-group mr-1"></i> Subcategorías</div>' + subMatches.map(s => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(s)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-blue-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(s,query)+'</span></div></div>').join(''); }
 if(brandMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-certificate mr-1"></i> Marcas</div>' + brandMatches.map(b => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(b)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-tag text-emerald-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(b,query)+'</span></div></div>').join(''); }
-if(codeMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-barcode mr-1"></i> Códigos / OEM</div>' + codeMatches.map(p => '<div class="ac-suggestion" onclick="selectAutocompleteItem(\''+escapeAttr(p.codigo)+'\')"><div class="flex items-center gap-2 min-w-0"><span class="bg-brand-red/20 text-brand-red border border-brand-red/40 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0">COD: '+escapeHTML(p.codigo)+'</span><span class="text-white text-sm truncate">'+highlightMatch(p.descripcion,query)+'</span></div><span class="font-racing font-bold text-xs text-white shrink-0">'+formatPrice(p.precio)+'</span></div>').join(''); }
+if(codeMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-barcode mr-1"></i> Códigos</div>' + codeMatches.map(p => '<div class="ac-suggestion" onclick="selectAutocompleteItem(\''+escapeAttr(p.codigo)+'\')"><div class="flex items-center gap-2 min-w-0"><span class="bg-brand-red/20 text-brand-red border border-brand-red/40 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0">COD: '+escapeHTML(p.codigo)+'</span><span class="text-white text-sm truncate">'+highlightMatch(p.descripcion,query)+'</span></div><span class="font-racing font-bold text-xs text-white shrink-0">'+formatPrice(p.precio)+'</span></div>').join(''); }
 if(prodMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-box mr-1"></i> Productos</div>' + prodMatches.map(p => '<div class="ac-suggestion" onclick="selectAutocompleteItem(\''+escapeAttr(p.codigo)+'\')"><div class="flex items-center gap-2 min-w-0"><img src="'+p.imagen+'" onerror="this.src=\''+FALLBACK_IMG+'\'" class="w-8 h-8 object-cover rounded border border-brand-border shrink-0"><div class="min-w-0"><div class="text-white text-sm font-semibold truncate">'+highlightMatch(p.descripcion,query)+'</div><div class="text-[10px] text-gray-400">'+escapeHTML(p.category)+' • '+escapeHTML(p.marca)+'</div></div></div><span class="font-racing font-bold text-xs text-white shrink-0">'+formatPrice(p.precio)+'</span></div>').join(''); }
 const totalMatches = ENRICHED.filter(p => { const qE = parseQuery(query); return retrieve(qE).has(p.id); }).length;
 if(totalMatches > 0){ html += '<button onclick="handleSearch(event)" class="w-full bg-brand-card hover:bg-brand-red hover:text-white text-brand-red text-center py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border-t border-brand-border flex items-center justify-center space-x-1.5"><span>Ver los '+totalMatches+' resultados completos</span><i class="fa-solid fa-chevron-right text-[10px]"></i></button>'; }
@@ -1719,463 +1522,257 @@ function closeDashboardModal(){ document.getElementById('dashboardModal').classL
 function verifyDashboardPassword(){ const password = document.getElementById('dashboardPassword').value.trim(); const errorMsg = document.getElementById('dashboardError'); if(password === DASHBOARD_ACCESS_CODE){ closeDashboardModal(); window.open(DASHBOARD_URL, '_blank'); } else { errorMsg.classList.remove('hidden'); document.getElementById('dashboardPassword').value = ''; document.getElementById('dashboardPassword').focus(); } }
 function initVideoObserver(){ const video = document.getElementById('fcVideo'); if(!video) return; if('IntersectionObserver' in window){ const obs = new IntersectionObserver(entries => { entries.forEach(entry => { if(entry.isIntersecting){ const p = video.play(); if(p && p.catch) p.catch(() => {}); } else { video.pause(); } }); }, { threshold: 0.2 }); obs.observe(video); } }
 /* =================================================================== */
-/* [CAMBIO 20] 🤖 AI SHOPPING & PARTS SEARCH ASSISTANT                 */
+/* 🤖 AI SHOPPING & PARTS SEARCH ASSISTANT (HABILITADO)                */
 /* =================================================================== */
-const AI = {
-  open: false,
-  memory: {},            // contexto conversacional: {vehicle_brand, model, displacement, year, product_type, product_brand, oem, code, category}
-  history: [],           // historial de mensajes
-  analytics: { queries: 0, noResults: 0, addedToCart: 0 }
-};
-
+const AI = { open: false, memory: {}, history: [], analytics: { queries: 0, noResults: 0, addedToCart: 0 } };
 function toggleAIChat(){
-  AI.open = !AI.open;
-  const chat = document.getElementById('aiChat');
-  const body = document.getElementById('aiBody');
-  if(AI.open){
-    chat.classList.add('open');
-    if(!AI.history.length){
-      aiAppendBot(aiWelcomeMessage());
-    }
-    setTimeout(() => document.getElementById('aiInput').focus(), 300);
-  } else {
-    chat.classList.remove('open');
-  }
+AI.open = !AI.open;
+const chat = document.getElementById('aiChat');
+if(AI.open){
+chat.classList.add('open');
+if(!AI.history.length){ aiAppendBot(aiWelcomeMessage()); }
+setTimeout(() => document.getElementById('aiInput').focus(), 300);
+} else { chat.classList.remove('open'); }
 }
-
 function aiWelcomeMessage(){
-  const samples = [
-    'filtro Honda Tornado 250',
-    'HF160',
-    'pastillas Yamaha MT-07',
-    'cubierta Mitas 90/10',
-    'casco Fox motocross'
-  ];
-  const quickBtns = [
-    ['🔍 Por vehículo', 'Buscame algo para mi moto'],
-    ['📦 Por código/OEM', 'HF160'],
-    ['🛞 Por marca', 'Mitas'],
-    ['🏷️ Por categoría', 'Cubiertas & Ruedas'],
-    ['❓ Ver todo el catálogo', '¿Qué tenés disponible?']
-  ];
-  return {
-    text: '¡Hola! 👋 Soy tu asistente de repuestos. Escribí lo que necesitás en lenguaje natural y busco en el catálogo real de FC RACING.<br><br>📌 <strong>Ejemplos:</strong><br>' +
-      samples.map(s => '• "'+s+'"').join('<br>'),
-    quick: quickBtns
-  };
+const samples = ['filtro Honda Tornado 250','HF160','pastillas Yamaha MT-07','cubierta Mitas 90/10','casco Fox motocross'];
+const quickBtns = [['🔍 Por vehículo','Buscame algo para mi moto'],['📦 Por código/OEM','HF160'],['🛞 Por marca','Mitas'],['🏷️ Por categoría','Cubiertas & Ruedas'],['❓ Ver todo el catálogo','¿Qué tenés disponible?']];
+return { text: '¡Hola! 👋 Soy tu asistente de repuestos. Escribí lo que necesitás en lenguaje natural y busco en el catálogo real de FC RACING.<br><br>📌 <strong>Ejemplos:</strong><br>' + samples.map(s => '• "'+s+'"').join('<br>'), quick: quickBtns };
 }
-
 function aiAppendUser(text){
-  const body = document.getElementById('aiBody');
-  const div = document.createElement('div');
-  div.className = 'ai-msg user';
-  div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-user"></i></div><div class="ai-msg-bubble">'+escapeHTML(text)+'</div>';
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-  AI.history.push({role:'user', text});
+const body = document.getElementById('aiBody');
+const div = document.createElement('div');
+div.className = 'ai-msg user';
+div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-user"></i></div><div class="ai-msg-bubble">'+escapeHTML(text)+'</div>';
+body.appendChild(div); body.scrollTop = body.scrollHeight;
+AI.history.push({role:'user', text});
 }
-
 function aiAppendBot(content){
-  const body = document.getElementById('aiBody');
-  const div = document.createElement('div');
-  div.className = 'ai-msg bot';
-  let bubbleHTML = typeof content === 'string' ? content : content.text;
-  let quickHTML = '';
-  if(content && content.quick && content.quick.length){
-    quickHTML = '<div class="ai-quick-actions">' +
-      content.quick.map(([label, value]) =>
-        '<button class="ai-quick-btn" onclick="aiQuickSend(\''+escapeAttr(value)+'\')">'+escapeHTML(label)+'</button>'
-      ).join('') + '</div>';
-  }
-  if(content && content.products && content.products.length){
-    quickHTML += '<div style="margin-top:8px;">' +
-      content.products.map(p => aiProductCardHTML(p)).join('') + '</div>';
-  }
-  if(content && content.explain){
-    quickHTML += '<div class="ai-explain">'+content.explain+'</div>';
-  }
-  div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-robot"></i></div><div class="ai-msg-bubble" style="max-width:92%;">'+bubbleHTML+quickHTML+'</div>';
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-  AI.history.push({role:'bot', content});
+const body = document.getElementById('aiBody');
+const div = document.createElement('div');
+div.className = 'ai-msg bot';
+let bubbleHTML = typeof content === 'string' ? content : content.text;
+let quickHTML = '';
+if(content && content.quick && content.quick.length){
+quickHTML = '<div class="ai-quick-actions">' + content.quick.map(([label, value]) => '<button class="ai-quick-btn" onclick="aiQuickSend(\''+escapeAttr(value)+'\')">'+escapeHTML(label)+'</button>').join('') + '</div>';
 }
-
+if(content && content.products && content.products.length){
+quickHTML += '<div style="margin-top:8px;">' + content.products.map(p => aiProductCardHTML(p)).join('') + '</div>';
+}
+if(content && content.explain){ quickHTML += '<div class="ai-explain">'+content.explain+'</div>'; }
+div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-robot"></i></div><div class="ai-msg-bubble" style="max-width:92%;">'+bubbleHTML+quickHTML+'</div>';
+body.appendChild(div); body.scrollTop = body.scrollHeight;
+AI.history.push({role:'bot', content});
+}
 function aiShowTyping(){
-  const body = document.getElementById('aiBody');
-  const div = document.createElement('div');
-  div.className = 'ai-msg bot';
-  div.id = 'aiTyping';
-  div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-robot"></i></div><div class="ai-msg-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>';
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
+const body = document.getElementById('aiBody');
+const div = document.createElement('div');
+div.className = 'ai-msg bot'; div.id = 'aiTyping';
+div.innerHTML = '<div class="ai-msg-avatar"><i class="fa-solid fa-robot"></i></div><div class="ai-msg-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>';
+body.appendChild(div); body.scrollTop = body.scrollHeight;
 }
-
-function aiHideTyping(){
-  const t = document.getElementById('aiTyping');
-  if(t) t.remove();
-}
-
+function aiHideTyping(){ const t = document.getElementById('aiTyping'); if(t) t.remove(); }
 function aiProductCardHTML(p){
-  const stockTxt = p.e.stock > 0 ? '<span style="color:#10b981;">✓ Stock: '+p.e.stock+'</span>' : '<span style="color:#ef4444;">✗ Sin stock</span>';
-  const compatTxt = p.compat === 'confirmada' ? '<span class="match-tag" style="background:rgba(16,185,129,0.2);color:#34d399;">✓ Compatible</span>'
-                   : p.compat === 'posible'  ? '<span class="match-tag" style="background:rgba(251,191,36,0.2);color:#fbbf24;">≈ Posible</span>'
-                   : '';
-  return '<div class="ai-product-card" onclick="openProductDetail(\''+escapeAttr(p.e.codigo)+'\')">'+
-    '<img src="'+p.e.imagen+'" onerror="this.src=\''+FALLBACK_IMG+'\'" alt="">'+
-    '<div class="ai-product-info">'+
-      '<div class="ai-product-title">'+escapeHTML(p.e.descripcion)+'</div>'+
-      '<div class="ai-product-meta">'+escapeHTML(p.e.marca)+' • COD: '+escapeHTML(p.e.codigo)+' '+compatTxt+'</div>'+
-      '<div class="ai-product-price">'+formatPrice(p.e.precio)+' <span style="color:#6b7280;font-size:9px;font-weight:400;">'+stockTxt+'</span></div>'+
-      '<div class="ai-product-actions">'+
-        '<button class="ai-btn-view" onclick="event.stopPropagation(); openProductDetail(\''+escapeAttr(p.e.codigo)+'\')"><i class="fa-solid fa-eye"></i> Ver</button>'+
-        '<button class="ai-btn-add" onclick="event.stopPropagation(); addToCart(\''+escapeAttr(p.e.codigo)+'\'); AI.analytics.addedToCart++;"><i class="fa-solid fa-cart-plus"></i> Agregar</button>'+
-      '</div>'+
-    '</div></div>';
+const stockTxt = p.e.stock > 0 ? '<span style="color:#10b981;">✓ Stock: '+p.e.stock+'</span>' : '<span style="color:#ef4444;">✗ Sin stock</span>';
+const compatTxt = p.compat === 'confirmada' ? '<span class="match-tag" style="background:rgba(16,185,129,0.2);color:#34d399;">✓ Compatible</span>' : p.compat === 'posible' ? '<span class="match-tag" style="background:rgba(251,191,36,0.2);color:#fbbf24;">≈ Posible</span>' : '';
+return '<div class="ai-product-card" onclick="openProductDetail(\''+escapeAttr(p.e.codigo)+'\')">'+
+'<img src="'+p.e.imagen+'" onerror="this.src=\''+FALLBACK_IMG+'\'" alt="">'+
+'<div class="ai-product-info">'+
+'<div class="ai-product-title">'+escapeHTML(p.e.descripcion)+'</div>'+
+'<div class="ai-product-meta">'+escapeHTML(p.e.marca)+' • COD: '+escapeHTML(p.e.codigo)+' '+compatTxt+'</div>'+
+'<div class="ai-product-price">'+formatPrice(p.e.precio)+' <span style="color:#6b7280;font-size:9px;font-weight:400;">'+stockTxt+'</span></div>'+
+'<div class="ai-product-actions">'+
+'<button class="ai-btn-view" onclick="event.stopPropagation(); openProductDetail(\''+escapeAttr(p.e.codigo)+'\')"><i class="fa-solid fa-eye"></i> Ver</button>'+
+'<button class="ai-btn-add" onclick="event.stopPropagation(); addToCart(\''+escapeAttr(p.e.codigo)+'\'); AI.analytics.addedToCart++;"><i class="fa-solid fa-cart-plus"></i> Agregar</button>'+
+'</div></div></div>';
 }
-
-function aiQuickSend(text){
-  document.getElementById('aiInput').value = text;
-  aiSendMessage();
-}
-
+function aiQuickSend(text){ document.getElementById('aiInput').value = text; aiSendMessage(); }
 function aiSendMessage(){
-  const input = document.getElementById('aiInput');
-  const text = input.value.trim();
-  if(!text) return;
-  input.value = '';
-  AI.analytics.queries++;
-  aiAppendUser(text);
-  aiShowTyping();
-  setTimeout(() => {
-    aiHideTyping();
-    try {
-      const response = aiProcessQuery(text);
-      aiAppendBot(response);
-    } catch(err){
-      console.error('AI error:', err);
-      aiAppendBot('Perdón, tuve un problema procesando tu consulta. Probá de nuevo o usá el buscador tradicional.');
-    }
-  }, 450);
+const input = document.getElementById('aiInput');
+const text = input.value.trim();
+if(!text) return;
+input.value = '';
+AI.analytics.queries++;
+aiAppendUser(text);
+aiShowTyping();
+setTimeout(() => {
+aiHideTyping();
+try { aiAppendBot(aiProcessQuery(text)); }
+catch(err){ console.error('AI error:', err); aiAppendBot('Perdón, tuve un problema procesando tu consulta. Probá de nuevo o usá el buscador tradicional.'); }
+}, 450);
 }
-
-/* ============ INTENT DETECTOR ============ */
 function aiDetectIntent(text){
-  const n = norm(text);
-  // Código exacto (ej: HF160, FC-103)
-  const codeMatch = text.match(/\b([A-Z]{1,5}-?\d{2,6})\b/i);
-  if(codeMatch && codeMatch[1].length >= 3 && !/\d{4}/.test(codeMatch[1])){
-    const codigo = codeMatch[1].toUpperCase();
-    const match = ENRICHED.find(p => norm(p.codigo) === norm(codigo));
-    if(match) return { intent: 'product_code_search', code: codigo };
-  }
-  // OEM (formato con guiones)
-  const oemMatch = text.match(/\b([A-Z0-9]{3,10}-[A-Z0-9]{3,8}(?:-[A-Z0-9]{2,8})?)\b/i);
-  if(oemMatch){
-    const oem = oemMatch[1].toUpperCase();
-    const match = ENRICHED.find(p => p.oem && p.oem.some(o => norm(o) === norm(oem)));
-    if(match) return { intent: 'oem_search', oem };
-  }
-  // Saludo
-  if(/^(hola|buenas|hey|qué tal|que tal|hi|hello)/i.test(text)) return { intent: 'greeting' };
-  // Catálogo general
-  if(/\b(qué tenés|que tenes|qué hay|que hay|catálogo|catalogo|todo|disponible|tenés algo|tenes algo)\b/i.test(text) && !/\b(para|de|marca)\b/i.test(text)) return { intent: 'general_catalog' };
-  // Ayuda
-  if(/\b(ayuda|help|cómo funciona|como funciona|qué podés)\b/i.test(text)) return { intent: 'help' };
-  // Precio rango
-  const priceMatch = text.match(/(\d{3,7})\s*(?:y|a|-)\s*(\d{3,7})\s*(?:mil|pesos|\$)?/i);
-  // Comparación
-  if(/\b(compará|comparar|cuál es mejor|cual es mejor|mejor)\b/i.test(text)) return { intent: 'comparison' };
-  // Stock
-  if(/\b(sólo en stock|solo en stock|tenés stock|en stock)\b/i.test(text)) return { intent: 'stock_search', stock: true };
-  // Búsqueda por vehículo o producto (default)
-  return { intent: 'product_search', priceMatch };
+const codeMatch = text.match(/\b([A-Z]{1,5}-?\d{2,6})\b/i);
+if(codeMatch && codeMatch[1].length >= 3 && !/\d{4}/.test(codeMatch[1])){
+const codigo = codeMatch[1].toUpperCase();
+const match = ENRICHED.find(p => norm(p.codigo) === norm(codigo));
+if(match) return { intent: 'product_code_search', code: codigo };
 }
-
-/* ============ ENTITY EXTRACTOR (usa memoria conversacional) ============ */
+const oemMatch = text.match(/\b([A-Z0-9]{3,10}-[A-Z0-9]{3,8}(?:-[A-Z0-9]{2,8})?)\b/i);
+if(oemMatch){
+const oem = oemMatch[1].toUpperCase();
+const match = ENRICHED.find(p => p.oem && p.oem.some(o => norm(o) === norm(oem)));
+if(match) return { intent: 'oem_search', oem };
+}
+if(/^(hola|buenas|hey|qué tal|que tal|hi|hello)/i.test(text)) return { intent: 'greeting' };
+if(/\b(qué tenés|que tenes|qué hay|que hay|catálogo|catalogo|todo|disponible|tenés algo|tenes algo)\b/i.test(text) && !/\b(para|de|marca)\b/i.test(text)) return { intent: 'general_catalog' };
+if(/\b(ayuda|help|cómo funciona|como funciona|qué podés)\b/i.test(text)) return { intent: 'help' };
+if(/\b(compará|comparar|cuál es mejor|cual es mejor|mejor)\b/i.test(text)) return { intent: 'comparison' };
+if(/\b(sólo en stock|solo en stock|tenés stock|en stock)\b/i.test(text)) return { intent: 'stock_search', stock: true };
+return { intent: 'product_search' };
+}
 function aiExtractEntities(text){
-  const ent = extractEntities(text);
-  // merge con memoria
-  const keys = ['marcasVeh','modelos','cilindradas','anios','oem','tipos'];
-  keys.forEach(k => {
-    if(ent[k] && ent[k].length){
-      AI.memory[k] = (k === 'anios') ? ent[k] : ent[k];
-    }
-  });
-  // Extraer product_type de TYPE_SYNONYMS
-  const n = norm(text);
-  let product_type = null;
-  for(const [tipo, pats] of Object.entries(TYPE_SYNONYMS)){
-    if(pats.some(p => n.includes(norm(p)))){ product_type = tipo; AI.memory.product_type = tipo; break; }
-  }
-  // Extraer product_brand (marcas de producto: MITAS, FOX, HIFLOFILTRO, etc.)
-  const knownBrands = [...new Set(ENRICHED.map(e => norm(e.marca)).filter(Boolean))];
-  let product_brand = null;
-  knownBrands.forEach(b => { if(n.includes(b)) product_brand = b.toUpperCase(); });
-  if(product_brand) AI.memory.product_brand = product_brand;
-  // Categoría
-  const knownCats = Object.keys(CATEGORY_TREE);
-  let category = null;
-  knownCats.forEach(c => { if(n.includes(norm(c))) category = c; });
-  if(category) AI.memory.category = category;
-  // Número suelto (cilindrada o año)
-  const yearOrCc = text.match(/\b(19[5-9]\d|20[0-2]\d|\d{3,4})\b/g);
-  if(yearOrCc){
-    yearOrCc.forEach(num => {
-      const n = parseInt(num);
-      if(n >= 1950 && n <= 2026){
-        AI.memory.anios = [[n,n]];
-      } else if([125,150,200,250,300,350,400,450,500,600,650,700,800,900,1000,1100,1200,1300].includes(n)){
-        AI.memory.cilindradas = [n];
-      }
-    });
-  }
-  return { product_type, product_brand, category };
+const ent = extractEntities(text);
+['marcasVeh','modelos','cilindradas','anios','oem','tipos'].forEach(k => { if(ent[k] && ent[k].length){ AI.memory[k] = ent[k]; } });
+const n = norm(text);
+let product_type = null;
+for(const [tipo, pats] of Object.entries(TYPE_SYNONYMS)){ if(pats.some(p => n.includes(norm(p)))){ product_type = tipo; AI.memory.product_type = tipo; break; } }
+const knownBrands = [...new Set(ENRICHED.map(e => norm(e.marca)).filter(Boolean))];
+let product_brand = null;
+knownBrands.forEach(b => { if(n.includes(b)) product_brand = b.toUpperCase(); });
+if(product_brand) AI.memory.product_brand = product_brand;
+let category = null;
+Object.keys(CATEGORY_TREE).forEach(c => { if(n.includes(norm(c))) category = c; });
+if(category) AI.memory.category = category;
+const yearOrCc = text.match(/\b(19[5-9]\d|20[0-2]\d|\d{3,4})\b/g);
+if(yearOrCc){
+yearOrCc.forEach(num => {
+const v = parseInt(num);
+if(v >= 1950 && v <= 2026){ AI.memory.anios = [[v,v]]; }
+else if([125,150,200,250,300,350,400,450,500,600,650,700,800,900,1000,1100,1200,1300].includes(v)){ AI.memory.cilindradas = [v]; }
+});
 }
-
-/* ============ SEARCH ENGINE (usa ENRICHED real) ============ */
+return { product_type, product_brand, category };
+}
 function aiRunSearch(entities){
-  // Construir un query textual con las entidades conocidas
-  const parts = [];
-  if(entities.product_type) parts.push(entities.product_type);
-  if(AI.memory.marcasVeh && AI.memory.marcasVeh.length) parts.push(AI.memory.marcasVeh.join(' '));
-  if(AI.memory.modelos && AI.memory.modelos.length) parts.push(AI.memory.modelos.join(' '));
-  if(AI.memory.cilindradas && AI.memory.cilindradas.length) parts.push(AI.memory.cilindradas.join(' '));
-  if(AI.memory.anios && AI.memory.anios.length){
-    AI.memory.anios.forEach(r => parts.push(String(r[0])));
-  }
-  if(entities.product_brand) parts.push(entities.product_brand);
-  if(entities.category) parts.push(entities.category);
-  const queryText = parts.join(' ');
-  const qEnt = queryText ? parseQuery(queryText) : null;
-  let pool = ENRICHED;
-  if(qEnt){
-    const ids = retrieve(qEnt);
-    pool = ENRICHED.filter(e => ids.has(e.id));
-  }
-  // Aplicar filtros adicionales por entidades
-  if(entities.category){
-    pool = pool.filter(e => norm(e.category) === norm(entities.category));
-  }
-  if(entities.product_brand){
-    pool = pool.filter(e => norm(e.marca) === norm(entities.product_brand));
-  }
-  // Scoring y compatibilidad
-  let results = pool.map(e => ({
-    e,
-    score: qEnt ? scoreProduct(e, qEnt) : (e.stock > 0 ? 1 : 0),
-    compat: qEnt ? isCompatible(e, qEnt) : null
-  }));
-  // Priorizar compatibles confirmados y con stock
-  results.sort((a,b) => {
-    if(a.compat === 'confirmada' && b.compat !== 'confirmada') return -1;
-    if(b.compat === 'confirmada' && a.compat !== 'confirmada') return 1;
-    if(a.e.stock > 0 && b.e.stock === 0) return -1;
-    if(b.e.stock > 0 && a.e.stock === 0) return 1;
-    return b.score - a.score;
-  });
-  return { results: results.slice(0, 4), qEnt, total: pool.length };
+const parts = [];
+if(entities.product_type) parts.push(entities.product_type);
+if(AI.memory.marcasVeh && AI.memory.marcasVeh.length) parts.push(AI.memory.marcasVeh.join(' '));
+if(AI.memory.modelos && AI.memory.modelos.length) parts.push(AI.memory.modelos.join(' '));
+if(AI.memory.cilindradas && AI.memory.cilindradas.length) parts.push(AI.memory.cilindradas.join(' '));
+if(AI.memory.anios && AI.memory.anios.length){ AI.memory.anios.forEach(r => parts.push(String(r[0]))); }
+if(entities.product_brand) parts.push(entities.product_brand);
+if(entities.category) parts.push(entities.category);
+const queryText = parts.join(' ');
+const qEnt = queryText ? parseQuery(queryText) : null;
+let pool = ENRICHED;
+if(qEnt){ const ids = retrieve(qEnt); pool = ENRICHED.filter(e => ids.has(e.id)); }
+if(entities.category){ pool = pool.filter(e => norm(e.category) === norm(entities.category)); }
+if(entities.product_brand){ pool = pool.filter(e => norm(e.marca) === norm(entities.product_brand)); }
+let results = pool.map(e => ({ e, score: qEnt ? scoreProduct(e, qEnt) : (e.stock > 0 ? 1 : 0), compat: qEnt ? isCompatible(e, qEnt) : null }));
+results.sort((a,b) => {
+if(a.compat === 'confirmada' && b.compat !== 'confirmada') return -1;
+if(b.compat === 'confirmada' && a.compat !== 'confirmada') return 1;
+if(a.e.stock > 0 && b.e.stock === 0) return -1;
+if(b.e.stock > 0 && a.e.stock === 0) return 1;
+return b.score - a.score;
+});
+return { results: results.slice(0, 4), qEnt, total: pool.length };
 }
-
-/* ============ PRODUCT EXPLAINER ============ */
 function aiExplainMatch(result, entities){
-  const e = result.e;
-  const matches = [];
-  if(entities.product_type){
-    const t = entities.product_type.toLowerCase();
-    if(norm(e.descripcion).includes(norm(t)) || norm(e.subcategory).includes(norm(t)) || norm(e.familia||'').includes(norm(t))){
-      matches.push('Tipo: '+entities.product_type);
-    }
-  }
-  if(AI.memory.marcasVeh && AI.memory.marcasVeh.length){
-    AI.memory.marcasVeh.forEach(b => {
-      if(norm(e.compatibilidad||'').includes(norm(b)) || e.marcasVeh.includes(b)){
-        matches.push('Moto: '+b);
-      }
-    });
-  }
-  if(AI.memory.modelos && AI.memory.modelos.length){
-    AI.memory.modelos.forEach(m => {
-      if(e.modelosVeh.includes(m) || norm(e.textoN).includes(norm(m))) matches.push('Modelo: '+m);
-    });
-  }
-  if(AI.memory.cilindradas && AI.memory.cilindradas.length){
-    AI.memory.cilindradas.forEach(cc => { if(ccCompat(e, cc)) matches.push(cc+'cc'); });
-  }
-  if(AI.memory.anios && AI.memory.anios.length){
-    AI.memory.anios.forEach(r => { if(yearCompat(e, r)) matches.push('Año '+r[0]); });
-  }
-  if(result.compat === 'confirmada'){
-    return '✅ <strong>Compatibilidad confirmada</strong> en catálogo. Coincide con: ' +
-      matches.map(m => '<span class="match-tag">'+escapeHTML(m)+'</span>').join('');
-  } else if(result.compat === 'posible'){
-    return '⚠️ <strong>Coincidencia posible</strong> (sin confirmación exacta de compatibilidad). Coincide con: ' +
-      matches.map(m => '<span class="match-tag">'+escapeHTML(m)+'</span>').join('');
-  }
-  return null;
+const e = result.e;
+const matches = [];
+if(entities.product_type){
+const t = entities.product_type.toLowerCase();
+if(norm(e.descripcion).includes(norm(t)) || norm(e.subcategory).includes(norm(t)) || norm(e.familia||'').includes(norm(t))){ matches.push('Tipo: '+entities.product_type); }
 }
-
-/* ============ MAIN PROCESSOR ============ */
-function aiProcessQuery(text){
-  const intent = aiDetectIntent(text);
-  const entities = aiExtractEntities(text);
-  // GREETING
-  if(intent.intent === 'greeting'){
-    return {
-      text: '¡Hola! 🏁 ¿Qué repuesto o accesorio estás buscando? Podés decirme cosas como:<br>• <em>"filtro Honda Tornado 250 2020"</em><br>• <em>"HF160"</em> (código)<br>• <em>"15410-MM5-003"</em> (OEM)<br>• <em>"cubierta Mitas 90/10"</em>',
-      quick: [['🔧 Buscar por vehículo', 'pastillas para Yamaha MT-07'], ['📦 Por código', 'HF160'], ['🏷️ Por categoría', 'Equipamiento Rider']]
-    };
-  }
-  // HELP
-  if(intent.intent === 'help'){
-    return {
-      text: 'Soy tu asistente inteligente. Puedo:<br>✅ Buscar por <strong>vehículo</strong> (marca, modelo, cilindrada, año)<br>✅ Buscar por <strong>código</strong> o <strong>OEM</strong><br>✅ Buscar por <strong>categoría</strong> o <strong>marca</strong><br>✅ Verificar <strong>compatibilidad</strong> real del catálogo<br>✅ Agregar al <strong>carrito</strong> directamente<br><br>⚠️ <strong>Nunca invento productos</strong>: todo sale del catálogo real de Google Sheets.',
-      quick: [['Ver ejemplos', 'filtro Honda Tornado 250']]
-    };
-  }
-  // GENERAL CATALOG
-  if(intent.intent === 'general_catalog'){
-    const total = ENRICHED.length;
-    const cats = [...new Set(ENRICHED.map(e => e.category))];
-    return {
-      text: '📚 Tenemos <strong>'+total+' productos</strong> en el catálogo organizados en <strong>'+cats.length+' categorías</strong>:<br>'+
-        cats.map(c => '• '+escapeHTML(c)).join('<br>'),
-      quick: cats.slice(0,4).map(c => ['🏷️ '+c, c])
-    };
-  }
-  // CODE SEARCH
-  if(intent.intent === 'product_code_search'){
-    const match = ENRICHED.find(p => norm(p.codigo) === norm(intent.code));
-    if(match){
-      return {
-        text: '🎯 <strong>Encontré el código '+escapeHTML(intent.code)+'</strong> en el catálogo:',
-        products: [{ e: match, compat: null, score: 100 }],
-        quick: [['Agregar al carrito', 'agregar '+intent.code], ['Ver detalle', intent.code], ['Buscar similares', match.category]]
-      };
-    }
-  }
-  // OEM SEARCH
-  if(intent.intent === 'oem_search'){
-    const match = ENRICHED.find(p => p.oem && p.oem.some(o => norm(o) === norm(intent.oem)));
-    if(match){
-      return {
-        text: '🎯 <strong>OEM '+escapeHTML(intent.oem)+'</strong> corresponde a:',
-        products: [{ e: match, compat: null, score: 100 }],
-        explain: '<span class="match-tag">OEM verificado</span> Coincidencia exacta en catálogo.',
-        quick: [['Agregar al carrito', 'agregar '+intent.oem], ['Ver detalle', match.codigo]]
-      };
-    }
-    AI.analytics.noResults++;
-    return { text: '❌ No encontré ningún producto con el OEM <strong>'+escapeHTML(intent.oem)+'</strong> en el catálogo.', quick: [['Buscar por otra referencia', 'HF160'], ['Ir al catálogo', 'ver catálogo']] };
-  }
-  // PRODUCT SEARCH (principal)
-  const { results, qEnt, total } = aiRunSearch(entities);
-  if(results.length === 0){
-    AI.analytics.noResults++;
-    // NO RESULTS RECOVERY: relajar consulta
-    const relaxed = aiRelaxedSearch(entities);
-    if(relaxed.length > 0){
-      return {
-        text: '🤔 No encontré coincidencia exacta, pero tengo <strong>'+relaxed.length+' opciones similares</strong> en el catálogo:',
-        products: relaxed,
-        explain: '⚠️ <strong>Relajé la búsqueda</strong>: quité cilindrada/año para mostrarte alternativas disponibles. Verificá compatibilidad manualmente.',
-        quick: [['Ver todo el catálogo', 'catálogo'], ['Buscar otra moto', 'Honda Tornado']]
-      };
-    }
-    // Sugerir alternativas basadas en marca
-    const sugg = AI.memory.marcasVeh && AI.memory.marcasVeh.length
-      ? ENRICHED.filter(e => e.marcasVeh.includes(AI.memory.marcasVeh[0]) || norm(e.compatibilidad||'').includes(norm(AI.memory.marcasVeh[0]))).slice(0,3)
-      : [];
-    if(sugg.length > 0){
-      return {
-        text: '❌ No encontré exactamente lo que pediste. Pero tengo <strong>'+sugg.length+' productos para '+(AI.memory.marcasVeh[0]||'esa marca')+'</strong>:',
-        products: sugg.map(e => ({e, compat: null, score: 0})),
-        quick: [['Ver todo el catálogo', 'catálogo']]
-      };
-    }
-    return {
-      text: '❌ No encontré productos que coincidan con "<em>'+escapeHTML(text)+'</em>" en el catálogo de FC RACING.<br><br>💡 Probá:<br>• Usar un <strong>código</strong> o <strong>OEM</strong><br>• Decirme la <strong>marca y modelo</strong> de tu moto<br>• Escribir solo el <strong>tipo</strong> (filtro, cadena, pastillas, etc.)',
-      quick: [['Ver catálogo completo', 'catálogo'], ['Buscar por moto', 'Honda Tornado'], ['Buscar por código', 'HF160']]
-    };
-  }
-  // Encontrados
-  const hasCompat = results.some(r => r.compat === 'confirmada');
-  const onlyPossible = results.every(r => r.compat === 'posible');
-  let introText = '';
-  if(hasCompat){
-    introText = '✅ <strong>Encontré '+results.length+' producto'+(results.length!==1?'s':'')+' compatible'+(results.length!==1?'s':'')+'</strong> con tu búsqueda:';
-  } else if(onlyPossible){
-    introText = '⚠️ <strong>Encontré '+results.length+' posible'+(results.length!==1?'s':'')+' coincidencia'+(results.length!==1?'s':'')</strong>. La compatibilidad no está 100% confirmada en catálogo:';
-  } else {
-    introText = '🔎 <strong>'+results.length+' resultado'+(results.length!==1?'s':'')+'</strong> relacionados con tu búsqueda:';
-  }
-  const firstExplain = aiExplainMatch(results[0], entities);
-  return {
-    text: introText,
-    products: results,
-    explain: firstExplain,
-    quick: [
-      ['Aplicar filtros', 'aplicar_filtros_ai'],
-      ['Ver más similares', 'más resultados'],
-      ['Solo con stock', 'mostrar solo en stock']
-    ]
-  };
+if(AI.memory.marcasVeh && AI.memory.marcasVeh.length){ AI.memory.marcasVeh.forEach(b => { if(norm(e.compatibilidad||'').includes(norm(b)) || e.marcasVeh.includes(b)){ matches.push('Moto: '+b); } }); }
+if(AI.memory.modelos && AI.memory.modelos.length){ AI.memory.modelos.forEach(m => { if(e.modelosVeh.includes(m) || norm(e.textoN).includes(norm(m))) matches.push('Modelo: '+m); }); }
+if(AI.memory.cilindradas && AI.memory.cilindradas.length){ AI.memory.cilindradas.forEach(cc => { if(ccCompat(e, cc)) matches.push(cc+'cc'); }); }
+if(AI.memory.anios && AI.memory.anios.length){ AI.memory.anios.forEach(r => { if(yearCompat(e, r)) matches.push('Año '+r[0]); }); }
+if(result.compat === 'confirmada'){ return '✅ <strong>Compatibilidad confirmada</strong> en catálogo. Coincide con: ' + matches.map(m => '<span class="match-tag">'+escapeHTML(m)+'</span>').join(''); }
+else if(result.compat === 'posible'){ return '⚠️ <strong>Coincidencia posible</strong> (sin confirmación exacta). Coincide con: ' + matches.map(m => '<span class="match-tag">'+escapeHTML(m)+'</span>').join(''); }
+return null;
 }
-
-/* ============ NO RESULTS RECOVERY ============ */
 function aiRelaxedSearch(entities){
-  // Guardar estado y relajar
-  const savedMem = JSON.parse(JSON.stringify(AI.memory));
-  // Quitar cilindrada
-  delete AI.memory.cilindradas;
-  let r = aiRunSearch(entities).results.slice(0,3);
-  if(r.length) { AI.memory = savedMem; return r; }
-  // Quitar año
-  delete AI.memory.anios;
-  r = aiRunSearch(entities).results.slice(0,3);
-  if(r.length) { AI.memory = savedMem; return r; }
-  // Quitar modelo, dejar marca
-  delete AI.memory.modelos;
-  r = aiRunSearch(entities).results.slice(0,3);
-  AI.memory = savedMem;
-  return r;
+const savedMem = JSON.parse(JSON.stringify(AI.memory));
+delete AI.memory.cilindradas;
+let r = aiRunSearch(entities).results.slice(0,3);
+if(r.length){ AI.memory = savedMem; return r; }
+delete AI.memory.anios;
+r = aiRunSearch(entities).results.slice(0,3);
+if(r.length){ AI.memory = savedMem; return r; }
+delete AI.memory.modelos;
+r = aiRunSearch(entities).results.slice(0,3);
+AI.memory = savedMem;
+return r;
 }
-
-/* ============ APPLY AI FILTERS TO MAIN UI ============ */
+function aiProcessQuery(text){
+const intent = aiDetectIntent(text);
+const entities = aiExtractEntities(text);
+if(intent.intent === 'greeting'){
+return { text: '¡Hola! 🏁 ¿Qué repuesto o accesorio estás buscando? Podés decirme cosas como:<br>• <em>"filtro Honda Tornado 250 2020"</em><br>• <em>"HF160"</em> (código)<br>• <em>"15410-MM5-003"</em> (OEM)<br>• <em>"cubierta Mitas 90/10"</em>', quick: [['🔧 Buscar por vehículo','pastillas para Yamaha MT-07'],['📦 Por código','HF160'],['🏷️ Por categoría','Equipamiento Rider']] };
+}
+if(intent.intent === 'help'){
+return { text: 'Soy tu asistente inteligente. Puedo:<br>✅ Buscar por <strong>vehículo</strong> (marca, modelo, cilindrada, año)<br>✅ Buscar por <strong>código</strong> o <strong>OEM</strong><br>✅ Buscar por <strong>categoría</strong> o <strong>marca</strong><br>✅ Verificar <strong>compatibilidad</strong> real del catálogo<br>✅ Agregar al <strong>carrito</strong> directamente<br><br>⚠️ <strong>Nunca invento productos</strong>: todo sale del catálogo real de Google Sheets.', quick: [['Ver ejemplos','filtro Honda Tornado 250']] };
+}
+if(intent.intent === 'general_catalog'){
+const total = ENRICHED.length;
+const cats = [...new Set(ENRICHED.map(e => e.category))];
+return { text: '📚 Tenemos <strong>'+total+' productos</strong> en el catálogo organizados en <strong>'+cats.length+' categorías</strong>:<br>'+ cats.map(c => '• '+escapeHTML(c)).join('<br>'), quick: cats.slice(0,4).map(c => ['🏷️ '+c, c]) };
+}
+if(intent.intent === 'product_code_search'){
+const match = ENRICHED.find(p => norm(p.codigo) === norm(intent.code));
+if(match){ return { text: '🎯 <strong>Encontré el código '+escapeHTML(intent.code)+'</strong> en el catálogo:', products: [{ e: match, compat: null, score: 100 }], quick: [['Agregar al carrito','agregar '+intent.code],['Ver detalle',intent.code],['Buscar similares',match.category]] }; }
+}
+if(intent.intent === 'oem_search'){
+const match = ENRICHED.find(p => p.oem && p.oem.some(o => norm(o) === norm(intent.oem)));
+if(match){ return { text: '🎯 <strong>OEM '+escapeHTML(intent.oem)+'</strong> corresponde a:', products: [{ e: match, compat: null, score: 100 }], explain: '<span class="match-tag">OEM verificado</span> Coincidencia exacta en catálogo.', quick: [['Agregar al carrito','agregar '+intent.oem],['Ver detalle',match.codigo]] }; }
+AI.analytics.noResults++;
+return { text: '❌ No encontré ningún producto con el OEM <strong>'+escapeHTML(intent.oem)+'</strong> en el catálogo.', quick: [['Buscar por otra referencia','HF160'],['Ir al catálogo','ver catálogo']] };
+}
+const { results, qEnt } = aiRunSearch(entities);
+if(results.length === 0){
+AI.analytics.noResults++;
+const relaxed = aiRelaxedSearch(entities);
+if(relaxed.length > 0){
+return { text: '🤔 No encontré coincidencia exacta, pero tengo <strong>'+relaxed.length+' opciones similares</strong> en el catálogo:', products: relaxed, explain: '⚠️ <strong>Relajé la búsqueda</strong>: quité cilindrada/año para mostrarte alternativas disponibles. Verificá compatibilidad manualmente.', quick: [['Ver todo el catálogo','catálogo'],['Buscar otra moto','Honda Tornado']] };
+}
+const sugg = AI.memory.marcasVeh && AI.memory.marcasVeh.length ? ENRICHED.filter(e => e.marcasVeh.includes(AI.memory.marcasVeh[0]) || norm(e.compatibilidad||'').includes(norm(AI.memory.marcasVeh[0]))).slice(0,3) : [];
+if(sugg.length > 0){
+return { text: '❌ No encontré exactamente lo que pediste. Pero tengo <strong>'+sugg.length+' productos para '+(AI.memory.marcasVeh[0]||'esa marca')+'</strong>:', products: sugg.map(e => ({e, compat: null, score: 0})), quick: [['Ver catálogo completo','catálogo']] };
+}
+return { text: '❌ No encontré productos que coincidan con "<em>'+escapeHTML(text)+'</em>" en el catálogo de FC RACING.<br><br>💡 Probá:<br>• Usar un <strong>código</strong> o <strong>OEM</strong><br>• Decirme la <strong>marca y modelo</strong> de tu moto<br>• Escribir solo el <strong>tipo</strong> (filtro, cadena, pastillas, etc.)', quick: [['Ver catálogo completo','catálogo'],['Buscar por moto','Honda Tornado'],['Buscar por código','HF160']] };
+}
+const hasCompat = results.some(r => r.compat === 'confirmada');
+const onlyPossible = results.every(r => r.compat === 'posible');
+let introText = '';
+if(hasCompat){ introText = '✅ <strong>Encontré '+results.length+' producto'+(results.length!==1?'s':'')+' compatible'+(results.length!==1?'s':'')+'</strong> con tu búsqueda:'; }
+else if(onlyPossible){ introText = '⚠️ <strong>Encontré '+results.length+' posible'+(results.length!==1?'s':'')+' coincidencia'+(results.length!==1?'s':'')</strong>. La compatibilidad no está 100% confirmada en catálogo:'; }
+else { introText = '🔎 <strong>'+results.length+' resultado'+(results.length!==1?'s':'')+'</strong> relacionados con tu búsqueda:'; }
+const firstExplain = aiExplainMatch(results[0], entities);
+return { text: introText, products: results, explain: firstExplain, quick: [['Aplicar filtros','aplicar_filtros_ai'],['Ver más similares','más resultados'],['Solo con stock','mostrar solo en stock']] };
+}
 document.addEventListener('click', function(e){
-  const btn = e.target.closest('button, .ai-quick-btn');
-  if(!btn) return;
-  const text = btn.textContent.trim();
-  if(text === 'Aplicar filtros' || text === 'aplicar_filtros_ai'){
-    e.preventDefault();
-    // sincronizar memoria → filtros principales
-    const newFilters = {};
-    if(AI.memory.category) newFilters.CATEGORIA = new Set([AI.memory.category]);
-    if(AI.memory.marcasVeh && AI.memory.marcasVeh.length) newFilters.COMPAT = new Set(AI.memory.marcasVeh);
-    searchState.filters = newFilters;
-    searchState.q = '';
-    renderCatalog(true);
-    showProductsModal();
-    syncURL(true);
-    toggleAIChat();
-  }
+const btn = e.target.closest('button, .ai-quick-btn');
+if(!btn) return;
+const text = btn.textContent.trim();
+if(text === 'Aplicar filtros' || text === 'aplicar_filtros_ai'){
+e.preventDefault();
+const newFilters = {};
+if(AI.memory.category) newFilters.CATEGORIA = new Set([AI.memory.category]);
+if(AI.memory.marcasVeh && AI.memory.marcasVeh.length) newFilters.COMPAT = new Set(AI.memory.marcasVeh);
+searchState.filters = newFilters;
+searchState.q = '';
+renderCatalog(true);
+showProductsModal();
+syncURL(true);
+toggleAIChat();
+}
 });
-
-/* ============ INIT ============ */
 window.addEventListener('load', () => {
-  // Auto-open AI hint después de 8 segundos si no se abrió
-  setTimeout(() => {
-    if(!AI.open && !sessionStorage.getItem('ai_hinted')){
-      const fab = document.getElementById('aiFab');
-      const hint = document.createElement('div');
-      hint.style.cssText = 'position:absolute;bottom:70px;right:0;background:linear-gradient(135deg,#0ea5e9,#6366f1);color:white;padding:8px 12px;border-radius:10px;font-size:11px;font-weight:600;box-shadow:0 6px 18px rgba(14,165,233,0.4);white-space:nowrap;animation:fadeIn 0.3s ease;';
-      hint.innerHTML = '🤖 ¿Necesitás ayuda? ¡Preguntame!';
-      fab.appendChild(hint);
-      setTimeout(() => hint.remove(), 5000);
-      sessionStorage.setItem('ai_hinted', '1');
-    }
-  }, 8000);
+setTimeout(() => {
+if(!AI.open && !sessionStorage.getItem('ai_hinted')){
+const fab = document.getElementById('aiFab');
+const hint = document.createElement('div');
+hint.style.cssText = 'position:absolute;bottom:70px;right:0;background:linear-gradient(135deg,#0ea5e9,#6366f1);color:white;padding:8px 12px;border-radius:10px;font-size:11px;font-weight:600;box-shadow:0 6px 18px rgba(14,165,233,0.4);white-space:nowrap;animation:fadeIn 0.3s ease;';
+hint.innerHTML = '🤖 ¿Necesitás ayuda? ¡Preguntame!';
+fab.appendChild(hint);
+setTimeout(() => hint.remove(), 5000);
+sessionStorage.setItem('ai_hinted', '1');
+}
+}, 8000);
 });
-
 window.onload = function(){
 initDictionaries();
 PRODUCTS = DEFAULT_PRODUCTS.map(p => Object.assign({}, p));
