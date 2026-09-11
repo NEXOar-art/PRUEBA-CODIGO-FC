@@ -116,8 +116,8 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 .filter-group { border: 1px solid #22222a; border-radius: 8px; background: #121215; overflow: hidden; }
 .filter-group-head { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 12px; color: #f4511e; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; background: transparent; }
 .filter-group-head:hover { color: #ff1e27; }
-.filter-group-head i { font-size: 10px; transition: transform .25s ease; }
-.filter-group.collapsed .filter-group-head i { transform: rotate(180deg); }
+.filter-group-head i.chev { font-size: 10px; transition: transform .25s ease; }
+.filter-group.collapsed .filter-group-head i.chev { transform: rotate(180deg); }
 .filter-group-body { padding: 2px 12px 10px; display: flex; flex-direction: column; gap: 7px; max-height: 210px; overflow-y: auto; }
 .filter-group.collapsed .filter-group-body { display: none; }
 .filter-check { display: flex; align-items: center; gap: 8px; color: #9ca3af; font-size: 11px; cursor: pointer; text-transform: uppercase; letter-spacing: .4px; }
@@ -143,7 +143,6 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 .compat-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 6px; letter-spacing: .4px; }
 .compat-yes { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.5); color: #4ade80; }
 .compat-maybe { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.5); color: #fbbf24; }
-/* [CAMBIO 17] AVISO DE RELAJACIÓN PREDICTIVA */
 .relax-notice { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; font-size: 11px; border-radius: 8px; padding: 8px 12px; }
 </style>
 </head>
@@ -185,7 +184,7 @@ select, select option { background-color: #121215; color: #f3f4f6; }
 <div class="w-full relative">
 <form onsubmit="handleSearch(event)" class="w-full flex items-center rounded-lg overflow-hidden border border-brand-border bg-black/60 focus-within:border-brand-red transition-colors">
 <div class="pl-3 text-gray-400"><i class="fa-solid fa-magnifying-glass text-sm"></i></div>
-<input type="text" id="searchInput" placeholder="Ej: filtro aceite honda tornado 250 · cubierta 90/10 adventure · HF160..." class="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none" oninput="handleSmartAutocomplete(this.value)" onfocus="handleSmartAutocomplete(this.value)" autocomplete="off">
+<input type="text" id="searchInput" placeholder="Ej: MITAS 90/10 ADVENTURE TOURING · cubierta rodado 21 · casco fox · HF160..." class="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none" oninput="handleSmartAutocomplete(this.value)" onfocus="handleSmartAutocomplete(this.value)" autocomplete="off">
 <button type="button" id="clearSearchBtn" onclick="clearSearchInput()" class="hidden pr-2 text-gray-500 hover:text-white transition-colors text-xs" aria-label="Limpiar búsqueda"><i class="fa-solid fa-xmark"></i></button>
 <button type="submit" class="bg-brand-red hover:bg-brand-redDark text-white px-5 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors flex items-center justify-center shrink-0">Buscar</button>
 </form>
@@ -598,7 +597,7 @@ const DASHBOARD_URL = 'https://nexoar-art.github.io/DASHBOARD-FC-RACING-/';
 const DASHBOARD_ACCESS_CODE = 'TABLERO3112';
 const DEFAULT_BANNER_MESSAGES = ['ENVÍOS A TODO EL PAÍS • COMPRA DIRECTA SIN REGISTRO O CUENTA','HOY 5% EN TU COMPRA MEDIANTE EL CARRITO DE COMPRAS','DIRECCIÓN DEL LOCAL: Ernesto Negrete 27 Esq. Alfredo Palacios','WHATSAPP: 3543546389'];
 const BANNER_ICONS = ['fa-solid fa-truck-fast','fa-solid fa-tags','fa-solid fa-location-dot','fa-brands fa-whatsapp','fa-solid fa-bullhorn','fa-solid fa-bolt'];
-const SCORE_WEIGHTS = { codigo:100, oem:100, sku:100, modelo:50, marcaVeh:40, tipo:35, cilindrada:25, anio:25, marcaProd:20, keyword:10, sinonimo:8, parcial:5, stock:5 };
+const SCORE_WEIGHTS = { codigo:100, oem:100, sku:100, modelo:50, marcaVeh:40, tipo:35, cilindrada:25, anio:25, marcaProd:20, keyword:10, sinonimo:8, parcial:5, stock:5, frase:40 };
 const STOPWORDS = new Set(['de','la','el','los','las','para','con','sin','y','o','en','por','del','al','un','una','que','se','mi','su','the','of','for','a','e','u']);
 const VEHICLE_BRANDS = ['HONDA','YAMAHA','KAWASAKI','SUZUKI','KTM','BMW','HUSQVARNA','GAS GAS','BETA','TRIUMPH','DUCATI','APRILIA','BENELLI','BAJAJ','CAN-AM','POLARIS','KOVE','CF MOTO','ROYAL ENFIELD','MOTO GUZZI','PIAGGIO','VESPA','SYM','MV AGUSTA','HARLEY DAVIDSON'];
 const BRAND_ALIASES = { 'YAM':'YAMAHA','YAMAHA MOTOR':'YAMAHA','HONDA MOTO':'HONDA','HONDA MOTOR':'HONDA','KAWA':'KAWASAKI','KTM AG':'KTM','HUSQ':'HUSQVARNA','HUSABERG':'HUSQVARNA','GASGAS':'GAS GAS','BMW MOTORRAD':'BMW','SUZ':'SUZUKI','ROYAL':'ROYAL ENFIELD' };
@@ -643,19 +642,20 @@ const TYPE_SYNONYMS = {
 'MEDIA':['media','medias','calcetin'],
 'IMPERMEABLE':['impermeable','impermeables','paraguas']
 };
+/* [CAMBIO 18] TIPO ampliado + UBICACION con alias */
 const FIXED_FILTER_OPTIONS = {
 RODADO: ['10','12','14','15','16','17','18','19','21'],
 TALLE: ['S','S/M','M','L','L/XL'],
-TIPO: ['MOTOCROSS','ENDURO','RALLY','TOURING ON/OFF','CALLE STREET CUSTOM'],
+TIPO: ['MOTOCROSS','ENDURO','RALLY','TOURING ON/OFF','CALLE STREET CUSTOM','SCOOTERS','CAMARAS','CUSTOM'],
 UBICACION: ['DELANTERO','TRASERO'],
 PARA: ['ADULTO','NIÑO','NIEVE'],
 COLORES: ['AZUL','ROJO','NEGRO','BLANCO','GRIS'],
 MODELO: ['ACCURI','RACECRAFT','STRATA'],
 MARCA: ['MITAS','BORILLI RACING PNEUMATICOS','UFO','ATLAS BRACE']
 };
+const UBICACION_ALIASES = { 'DELANTERO': ['delantero','del','d'], 'TRASERO': ['trasero','tras','t'] };
 const ATTR_KEYWORDS = {
-TIPO: ['MOTOCROSS','ENDURO','RALLY','TOURING ON/OFF','CALLE STREET CUSTOM'],
-UBICACION: ['DELANTERO','TRASERO'],
+TIPO: ['MOTOCROSS','ENDURO','RALLY','TOURING ON/OFF','CALLE STREET CUSTOM','SCOOTERS','CAMARAS','CUSTOM'],
 PARA: ['ADULTO','NIÑO','NIEVE'],
 COLORES: ['AZUL','ROJO','NEGRO','BLANCO','GRIS'],
 MODELO: ['ACCURI','RACECRAFT','STRATA','ARMATIC','ARMEGA','BARSTOW','AIRFLAPS']
@@ -730,33 +730,44 @@ const CATEGORY_DESCS = {
 const DEFAULT_PRODUCTS = [
 { id: 101, codigo: 'FC-101', descripcion: 'Antiparras 100% Strata 2 Off Road Lens Red', category: 'EQUIPAMIENTO RIDER', subcategory: 'ANTIPARRAS', familia: 'Strata', marca: '100%', precio: 48500, stock: 8, imagen: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'antiparra goggles lente off road rider vision', attrs: { MODELO: 'STRATA', COLORES: 'ROJO', PARA: 'ADULTO', TIPO: 'MOTOCROSS, ENDURO' } },
 { id: 102, codigo: 'FC-102', descripcion: 'Casco Fox V1 Motocross Solid White ECE', category: 'EQUIPAMIENTO RIDER', subcategory: 'CASCOS', familia: 'Off-Road / Motocross', marca: 'FOX RACING', precio: 280000, stock: 2, imagen: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'casco helmet mx motocross off road proteccion', attrs: { TIPO: 'MOTOCROSS', COLORES: 'BLANCO', PARA: 'ADULTO', TALLE: 'M, L' } },
-{ id: 103, codigo: 'FC-103', descripcion: 'Cubierta Mitas C-19 90/90-21 Super Light', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: 'Motocross', marca: 'MITAS', precio: 110000, stock: 4, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Yamaha Lander 250, Honda Tornado/CRF, UNIVERSAL', keywords: 'cubiertas todo terreno enduro motocross llanta neumático', attrs: { TIPO: 'ENDURO, MOTOCROSS', UBICACION: 'DELANTERO', RODADO: '21', COLORES: 'NEGRO' } },
+{ id: 103, codigo: 'FC-103', descripcion: 'Cubierta Mitas C-19 90/90-21 Super Light DEL', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: 'Motocross', marca: 'MITAS', precio: 110000, stock: 4, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Yamaha Lander 250, Honda Tornado/CRF, UNIVERSAL', keywords: 'cubiertas todo terreno enduro motocross llanta neumático', attrs: { TIPO: 'ENDURO, MOTOCROSS', UBICACION: 'DEL', RODADO: '21', COLORES: 'NEGRO' } },
 { id: 104, codigo: 'FC-104', descripcion: 'Kit Transmisión Chain & Sprocket Z-Tech 520', category: 'MANTENIMIENTO', subcategory: 'TRANSMISION', familia: 'Kits Transmisión', marca: 'Z-TECH', precio: 92000, stock: 12, imagen: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'cadena piñón corona kit transmisión sprocket', attrs: {} },
 { id: 105, codigo: 'FC-105', descripcion: 'Manubrio Renthal Fatbar 28mm Red Competition', category: 'ACCESORIOS MOTO', subcategory: 'MANUBRIOS & COMANDOS', familia: 'Manubrios', marca: 'RENTHAL', precio: 125000, stock: 1, imagen: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'manubrio handlebar fatbar aluminio comando', attrs: { COLORES: 'ROJO', TIPO: 'MOTOCROSS, ENDURO' } },
 { id: 106, codigo: 'FC-106', descripcion: 'Kit Plásticos Acerbis CRF 250/450 Red Replica', category: 'PLASTICOS Y KITS', subcategory: 'KITS PLÁSTICOS', familia: '', marca: 'ACERBIS', precio: 175000, stock: 6, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Honda Tornado/CRF', keywords: 'plásticos kit carenado tapas guardabarros', attrs: { COLORES: 'ROJO' } },
 { id: 107, codigo: 'FC-107', descripcion: 'Caballete Z-Tech Lift Stand Aluminio Taller', category: 'TALLER & TRANSPORTE', subcategory: 'CABALLETES & SOPORTES', familia: 'Caballetes Elevadores', marca: 'Z-TECH', precio: 85000, stock: 3, imagen: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'caballete stand taller elevador lift', attrs: {} },
 { id: 108, codigo: 'FC-108', descripcion: 'Aceite Motul 7100 10W40 Sintético 1 Litro', category: 'MANTENIMIENTO', subcategory: 'ACEITES & LUBRICANTES', familia: '', marca: 'MOTUL', precio: 24000, stock: 15, imagen: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'aceite lubricante sintético motor 4t', attrs: {} },
-{ id: 109, codigo: 'FC-109', descripcion: 'Cubierta Mitas E-07+ 150/70-17 Todo Terreno Dual 90/10 Adventure Touring', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: '90/10 - Adventure Touring', marca: 'MITAS', precio: 145000, stock: 7, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Yamaha Ténéré 700, Suzuki V-Strom 650, KTM 1290 Super Adventure, Kove 800X', keywords: 'cubiertas todo terreno doble propósito trail rally adventure', attrs: { TIPO: 'TOURING ON/OFF, RALLY', UBICACION: 'TRASERO', RODADO: '17', COLORES: 'NEGRO' } },
-{ id: 110, codigo: 'FC-110', descripcion: 'Cubierta Pirelli Scorpion Rally ST 90/90-21 Todo Terreno', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: 'Rally', marca: 'PIRELLI', precio: 168000, stock: 5, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Honda Africa Twin CRF 1100, Honda XL 750 Transalp, Yamaha Ténéré 700', keywords: 'cubierta todo terreno rally race adventure', attrs: { TIPO: 'RALLY', UBICACION: 'DELANTERO', RODADO: '21', COLORES: 'NEGRO' } },
+{ id: 109, codigo: 'FC-109', descripcion: 'Cubierta Mitas E-07+ 150/70-17 Todo Terreno Dual 90/10 Adventure Touring TRAS', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: '90/10 - Adventure Touring', marca: 'MITAS', precio: 145000, stock: 7, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Yamaha Ténéré 700, Suzuki V-Strom 650, KTM 1290 Super Adventure, Kove 800X', keywords: 'cubiertas todo terreno doble propósito trail rally adventure', attrs: { TIPO: 'TOURING ON/OFF, RALLY', UBICACION: 'TRAS', RODADO: '17', COLORES: 'NEGRO' } },
+{ id: 110, codigo: 'FC-110', descripcion: 'Cubierta Pirelli Scorpion Rally ST 90/90-21 Todo Terreno DEL', category: 'CUBIERTAS & RUEDAS', subcategory: 'CUBIERTAS POR TERRENO', familia: 'Rally', marca: 'PIRELLI', precio: 168000, stock: 5, imagen: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=400&q=80', compatibilidad: 'Honda Africa Twin CRF 1100, Honda XL 750 Transalp, Yamaha Ténéré 700', keywords: 'cubierta todo terreno rally race adventure', attrs: { TIPO: 'RALLY', UBICACION: 'DEL', RODADO: '21', COLORES: 'NEGRO' } },
 { id: 111, codigo: 'FC-111', descripcion: 'Botas Fox Instinct Enduro Negras', category: 'EQUIPAMIENTO RIDER', subcategory: 'BOTAS & CALZADO', familia: 'Off-Road', marca: 'FOX RACING', precio: 320000, stock: 4, imagen: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'botas enduro motocross proteccion rider bota', attrs: { TALLE: 'M, L', PARA: 'ADULTO', TIPO: 'ENDURO', COLORES: 'NEGRO' } },
 { id: 112, codigo: 'HF160', descripcion: 'FILTRO ACEITE HIFLO HF160 BMW 650 A 1300 GS ADVENTURE 05/25 HONDA CBR 1000 08/23', category: 'MANTENIMIENTO', subcategory: 'FILTROS', familia: 'Filtros de Aceite', marca: 'HIFLOFILTRO', precio: 23221, stock: 9, imagen: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80', compatibilidad: 'BMW, HONDA', oem: ['15410-MM5-003'], keywords: 'filtro aceite oil filter hiflo', attrs: {} },
 { id: 113, codigo: 'FC-113', descripcion: 'Remera FC Racing Algodón Negra Logo Rojo', category: 'CASUAL', subcategory: 'REMERAS', familia: '', marca: 'FC RACING', precio: 18500, stock: 20, imagen: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80', compatibilidad: 'UNIVERSAL', keywords: 'remera camiseta casual ropa urbana', attrs: { COLORES: 'NEGRO', TALLE: 'S, M, L, L/XL', PARA: 'ADULTO' } }
 ];
 let PRODUCTS = [];
 let ENRICHED = [];
+let PHRASES = [];
 let CART = [];
 let collapsedGroups = new Set();
 let searchState = { q: '', sort: 'relevancia', filters: {} };
 let applyingHash = false;
-let INDEX_TOKEN = new Map(), INDEX_CODIGO = new Map(), INDEX_OEM = new Map();
+let INDEX_TOKEN = new Map(), INDEX_CODIGO = new Map(), INDEX_OEM = new Map(), INDEX_BYID = new Map();
 let VN = [];
 function norm(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
 function normalizeText(str){ return norm(str).trim(); }
 function initDictionaries(){ VN = VEHICLE_BRANDS.map(b => ({ v: b, k: norm(b) })); Object.entries(BRAND_ALIASES).forEach(([a,b]) => VN.push({ v: b, k: norm(a) })); }
-function tokenize(s){ return norm(s).split(/[^a-z0-9]+/).filter(t => t.length > 1 && !STOPWORDS.has(t)); }
+/* [CAMBIO 18] tokenize conserva medidas con slash (90/10, 150/70) */
+function tokenize(s){ const m = norm(s).match(/[a-z0-9]+(?:\/[a-z0-9]+)?/g) || []; return m.filter(t => t.length > 1 && !STOPWORDS.has(t)); }
 function escapeHTML(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function escapeAttr(str){ return String(str).replace(/'/g,"\\'"); }
 function levenshtein(a,b){ if(a===b) return 0; if(!a.length) return b.length; if(!b.length) return a.length; let prev = Array.from({length:b.length+1},(_,i)=>i); for(let i=1;i<=a.length;i++){ const cur=[i]; for(let j=1;j<=b.length;j++){ cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1)); } prev=cur; } return prev[b.length]; }
+/* [CAMBIO 18] canonicaliza UBICACION desde alias */
+function canonUbicacion(str){
+return String(str||'').split(',').map(t => {
+const up = t.trim().toUpperCase();
+if(!up) return '';
+for(const [canon, arr] of Object.entries(UBICACION_ALIASES)){ if(arr.map(x=>x.toUpperCase()).includes(up)) return canon; }
+return up;
+}).filter(Boolean).join(', ');
+}
 function extractEntities(text){
 const n = norm(text);
 const ent = { marcasVeh: [], modelos: [], cilindradas: [], ccRange: null, anios: [], oem: [], tipos: [], attrs: {} };
@@ -783,6 +794,11 @@ if(from >= 1950 && to <= 2040) ent.anios.push([from,to]);
 VN.forEach(b => { if(n.includes(b.k)){ if(!ent.marcasVeh.includes(b.v)) ent.marcasVeh.push(b.v); (VEHICLE_MODELS[b.v]||[]).forEach(mo => { if(n.includes(norm(mo)) && !ent.modelos.includes(mo.toUpperCase())) ent.modelos.push(mo.toUpperCase()); }); } });
 Object.entries(TYPE_SYNONYMS).forEach(([tipo, pats]) => { if(pats.some(p => n.includes(norm(p)))) ent.tipos.push(tipo); });
 Object.entries(ATTR_KEYWORDS).forEach(([grp, vals]) => { vals.forEach(v => { if(n.includes(norm(v))){ ent.attrs[grp] = (ent.attrs[grp] ? ent.attrs[grp]+', ' : '') + v; } }); });
+/* [CAMBIO 18] UBICACION por alias word-boundary */
+const ub = [];
+if(/\b(delantero|del|d)\b/.test(n)) ub.push('DELANTERO');
+if(/\b(trasero|tras|t)\b/.test(n)) ub.push('TRASERO');
+if(ub.length) ent.attrs.UBICACION = ub.join(', ');
 return ent;
 }
 function yearCompat(e, range){ return (e.anios||[]).some(r => range[0] <= r[1] && range[1] >= r[0]); }
@@ -790,7 +806,8 @@ function ccCompat(e, cc){ if((e.cilindradas||[]).includes(cc)) return true; if(e
 function enrich(p){
 const base = Object.assign({}, p);
 const attrsSrc = Object.assign({}, p.attrs||{});
-const texto = [p.descripcion, p.codigo, p.category, p.subcategory, p.marca, p.compatibilidad, p.keywords, Object.values(attrsSrc).join(' ')].join(' ');
+if(attrsSrc.UBICACION) attrsSrc.UBICACION = canonUbicacion(attrsSrc.UBICACION);
+const texto = [p.descripcion, p.codigo, p.category, p.subcategory, p.familia, p.marca, p.compatibilidad, p.keywords, Object.values(attrsSrc).join(' ')].join(' ');
 const n = norm(texto);
 const ent = extractEntities(texto);
 let familia = p.familia || '';
@@ -801,7 +818,7 @@ if(!familia){ for(const [sub, leaves] of Object.entries(tree)){ for(const lf of 
 if(!subcategory || subcategory === 'General'){ for(const sub of Object.keys(tree)){ if(n.includes(norm(sub))){ subcategory = sub; break; } } }
 }
 const atributos = Object.assign({}, attrsSrc);
-Object.entries(ent.attrs).forEach(([k,v]) => { if(!atributos[k]) atributos[k] = v; });
+Object.entries(ent.attrs).forEach(([k,v]) => { if(!atributos[k]) atributos[k] = (k==='UBICACION'? canonUbicacion(v) : v); });
 if(!atributos.TIPO && ent.tipos.length) atributos.TIPO = ent.tipos.join(', ');
 const tokens = tokenize(texto);
 const quality = (p.category && subcategory && p.marca && Object.keys(atributos).length >= 2 && texto.length > 60) ? 'high' : (texto.length > 30 ? 'medium' : 'low');
@@ -819,12 +836,17 @@ return base;
 }
 function rebuildEngine(){
 ENRICHED = PRODUCTS.map(enrich);
-INDEX_TOKEN = new Map(); INDEX_CODIGO = new Map(); INDEX_OEM = new Map();
+INDEX_TOKEN = new Map(); INDEX_CODIGO = new Map(); INDEX_OEM = new Map(); INDEX_BYID = new Map();
+const phraseSet = new Set();
 ENRICHED.forEach(e => {
+INDEX_BYID.set(e.id, e);
 e.tokens.forEach(t => { if(!INDEX_TOKEN.has(t)) INDEX_TOKEN.set(t, new Set()); INDEX_TOKEN.get(t).add(e.id); });
 INDEX_CODIGO.set(norm(e.codigo), e.id);
 e.oem.forEach(o => INDEX_OEM.set(norm(o), e.id));
+const ph = [e.marca, e.subcategory, e.familia].filter(Boolean).join(' ');
+if(ph && phraseSet.size < 80) phraseSet.add(ph);
 });
+PHRASES = [...phraseSet];
 }
 function fuzzyToken(t){ if(t.length < 5) return null; let best = null, bd = 2; for(const key of INDEX_TOKEN.keys()){ if(Math.abs(key.length - t.length) > 1) continue; const d = levenshtein(t, key); if(d < bd){ bd = d; best = key; } } return best; }
 function parseQuery(q){ const ent = extractEntities(q); ent.tokens = tokenize(q); ent.raw = q; return ent; }
@@ -840,6 +862,9 @@ if(!ids || ids.size === 0){
 const full = norm(qEnt.raw);
 ids = new Set(ENRICHED.filter(e => e.textoN.includes(full)).map(e => e.id));
 }
+/* [CAMBIO 18] precisión: si hay candidatos que contienen TODOS los tokens, priorizarlos */
+const strict = new Set([...ids].filter(id => { const e = INDEX_BYID.get(id); return e && qEnt.tokens.every(t => e.textoN.includes(t)); }));
+if(strict.size > 0) ids = strict;
 return ids;
 }
 function scoreProduct(e, qEnt){
@@ -855,6 +880,7 @@ if(qEnt.anios.some(r => yearCompat(e, r))) s += SCORE_WEIGHTS.anio;
 if(qEnt.tokens.some(t => norm(e.marca||'').includes(t))) s += SCORE_WEIGHTS.marcaProd;
 if(qEnt.tokens.some(t => norm(e.keywords||'').includes(t))) s += SCORE_WEIGHTS.keyword;
 qEnt.tokens.forEach(t => { if(n.includes(t)) s += SCORE_WEIGHTS.parcial; });
+if(qRaw && n.includes(qRaw)) s += SCORE_WEIGHTS.frase;
 if(e.stock > 0) s += SCORE_WEIGHTS.stock;
 return s;
 }
@@ -872,7 +898,6 @@ return structuredEvidence ? 'confirmada' : 'posible';
 }
 return false;
 }
-/* [CAMBIO 17] MATCHING PREDICTIVO POR TEXTO (descripciones + base) */
 function scopeTokens(scopeText){ return norm(scopeText).split(/[^a-z0-9\/]+/).filter(t => t.length > 1 && !STOPWORDS.has(t)); }
 function matchesScope(e, scopeText){
 const alts = String(scopeText).split(/\s*&\s*/);
@@ -882,15 +907,20 @@ if(!toks.length) return true;
 return toks.every(t => e.textoN.includes(t));
 });
 }
+/* [CAMBIO 18] SUBCATEGORIA reemplaza SUBRUBRO+FAMILIA; UBICACION alias-aware */
 function groupValueMatch(group, e, val){
 const v = norm(val);
 switch(group){
 case 'CATEGORIA': return norm(e.category) === v;
-case 'SUBRUBRO': return norm(e.subcategory) === v || matchesScope(e, val);
-case 'FAMILIA': return norm(e.familia||'') === v || matchesScope(e, val);
+case 'SUBCATEGORIA': return norm(e.subcategory) === v || norm(e.familia||'') === v || matchesScope(e, val);
 case 'MARCA': return norm(e.marca) === v;
 case 'STOCK': return stockLabel(e) === val;
 case 'COMPAT': { const c = norm(e.compatibilidad||''); return c.includes(v) || c.includes('universal'); }
+case 'UBICACION': {
+const av = norm(e.atributos.UBICACION || '');
+const aliases = (UBICACION_ALIASES[val] || [val]).map(x => norm(x));
+return aliases.some(a => av.split(',').map(x=>x.trim()).includes(a) || av.includes(a));
+}
 default: { const av = norm(e.atributos[group]||''); return av.split(',').map(x=>x.trim()).includes(v); }
 }
 }
@@ -900,17 +930,16 @@ if(!set || !set.size || g === skipGroup) return true;
 return [...set].some(val => groupValueMatch(g, e, val));
 }));
 }
-/* [CAMBIO 17] FACETS PREDICTIVOS: solo opciones con resultados reales */
 function facetOptions(group, baseList){
 const fixed = FIXED_FILTER_OPTIONS[group] || [];
 const dyn = new Set();
 baseList.forEach(e => {
 if(group === 'CATEGORIA') dyn.add(e.category);
-else if(group === 'SUBRUBRO') dyn.add(e.subcategory);
-else if(group === 'FAMILIA'){ if(e.familia) dyn.add(e.familia); }
+else if(group === 'SUBCATEGORIA'){ if(e.subcategory) dyn.add(e.subcategory); if(e.familia) dyn.add(e.familia); }
 else if(group === 'MARCA') dyn.add(e.marca);
 else if(group === 'STOCK') dyn.add(stockLabel(e));
 else if(group === 'COMPAT'){ (e.compatibilidad||'').split(',').forEach(c => { c=c.trim(); if(c) dyn.add(c); }); }
+else if(group === 'UBICACION'){ /* solo opciones canónicas */ }
 else { (e.atributos[group]||'').split(',').forEach(c => { c=c.trim(); if(c) dyn.add(c.toUpperCase()); }); }
 });
 const all = [...new Set(fixed.concat([...dyn]))];
@@ -934,28 +963,38 @@ let results = filtered.map(e => ({ e, score: scored ? scoreProduct(e, qEnt) : (e
 results = sortResults(results);
 return { results, queryFiltered, qEnt };
 }
+/* [CAMBIO 18] Sidebar simplificado: CATEGORIA → SUBCATEGORIA (sin SUBRUBRO/FAMILIA) + iconos */
 const SIDEBAR_GROUPS = [
-['CATEGORIA','Categoría'], ['SUBRUBRO','Subrubro'], ['FAMILIA','Familia'], ['MARCA','Marca Producto'], ['STOCK','Estado de Stock'], ['COMPAT','Compatibilidad Moto / Marca Cubiertas'],
-['RODADO','Rodado'], ['TALLE','Talle'], ['TIPO','Tipo'], ['UBICACION','Ubicación'], ['PARA','Para'], ['COLORES','Colores'], ['MODELO','Modelo']
+['CATEGORIA','Categoría','fa-folder'],
+['SUBCATEGORIA','Subcategoría','fa-layer-group'],
+['MARCA','Marca Producto','fa-certificate'],
+['STOCK','Estado de Stock','fa-boxes-stacked'],
+['COMPAT','Compatibilidad Moto','fa-motorcycle'],
+['RODADO','Rodado','fa-circle-notch'],
+['TALLE','Talle','fa-ruler'],
+['TIPO','Tipo','fa-tags'],
+['UBICACION','Ubicación','fa-location-crosshairs'],
+['PARA','Para','fa-user'],
+['COLORES','Colores','fa-palette'],
+['MODELO','Modelo','fa-glasses']
 ];
-function filterGroupHTML(groupName, title, entries, selected){
+function filterGroupHTML(groupName, title, entries, selected, icon){
 const collapsed = collapsedGroups.has(groupName) ? ' collapsed' : '';
 const body = entries.map(([val, count]) => {
 const checked = selected && selected.has(val) ? ' checked' : '';
 return '<label class="filter-check"><input type="checkbox" data-group="'+groupName+'" data-value="'+escapeHTML(val)+'" onchange="onSidebarFilter()"'+checked+'><span>'+escapeHTML(val)+'</span><span class="filter-count">'+count+'</span></label>';
 }).join('');
-return '<div class="filter-group'+collapsed+'" data-group="'+groupName+'"><button type="button" class="filter-group-head" onclick="toggleFilterGroup(this)"><span>'+escapeHTML(title)+'</span><i class="fa-solid fa-chevron-up"></i></button><div class="filter-group-body">'+(body || '<span class="text-[10px] text-gray-500">Sin opciones</span>')+'</div></div>';
+return '<div class="filter-group'+collapsed+'" data-group="'+groupName+'"><button type="button" class="filter-group-head" onclick="toggleFilterGroup(this)"><span><i class="fa-solid '+icon+' mr-1"></i>'+escapeHTML(title)+'</span><i class="fa-solid fa-chevron-up chev"></i></button><div class="filter-group-body">'+(body || '<span class="text-[10px] text-gray-500">Sin opciones</span>')+'</div></div>';
 }
-/* [CAMBIO 17] SIDEBAR PREDICTIVO: base por grupo excluye su propia selección y oculta opciones vacías */
 function renderSidebar(pool){
 const sb = document.getElementById('filtersSidebar');
 if(!sb) return;
-let html = '';
-SIDEBAR_GROUPS.forEach(([g, title]) => {
+let html = '<div class="flex items-center justify-between px-1"><span class="text-[10px] font-black uppercase tracking-widest text-gray-300"><i class="fa-solid fa-sliders mr-1 text-brand-red"></i>Filtros predictivos</span><button onclick="toggleAllGroups()" class="text-[9px] uppercase text-gray-500 hover:text-white underline">Expandir/Colapsar</button></div>';
+SIDEBAR_GROUPS.forEach(([g, title, icon]) => {
 const base = applyFilters(pool, searchState.filters, g);
 const sel = searchState.filters[g];
 const entries = facetOptions(g, base).filter(([val, count]) => count > 0 || (sel && sel.has(val)));
-if(entries.length) html += filterGroupHTML(g, title, entries, sel);
+if(entries.length) html += filterGroupHTML(g, title, entries, sel, icon);
 });
 html += '<button onclick="clearAllFilters()" class="w-full mt-2 bg-brand-card hover:bg-brand-red hover:text-white text-gray-300 border border-brand-border rounded px-3 py-2 text-[10px] font-bold uppercase tracking-wider transition-colors"><i class="fa-solid fa-rotate-left mr-1"></i> Limpiar Filtros</button>';
 html += '<button onclick="openDataQualityModal()" class="w-full mt-1 bg-brand-card hover:bg-emerald-600 hover:text-white text-gray-400 border border-brand-border rounded px-3 py-2 text-[10px] font-bold uppercase tracking-wider transition-colors"><i class="fa-solid fa-database mr-1"></i> Calidad de Datos</button>';
@@ -966,6 +1005,11 @@ const group = btn.closest('.filter-group');
 const name = group.dataset.group;
 group.classList.toggle('collapsed');
 if(group.classList.contains('collapsed')) collapsedGroups.add(name); else collapsedGroups.delete(name);
+}
+function toggleAllGroups(){
+const groups = document.querySelectorAll('#filtersSidebar .filter-group');
+const anyOpen = [...groups].some(g => !g.classList.contains('collapsed'));
+groups.forEach(g => { g.classList.toggle('collapsed', anyOpen); const n = g.dataset.group; if(anyOpen) collapsedGroups.add(n); else collapsedGroups.delete(n); });
 }
 function collectSidebarFilters(){
 const f = {};
@@ -1031,7 +1075,6 @@ html += '<button onclick="clearAllFilters()" class="cat-tree-leaf">Limpiar filtr
 html += '</div></div>';
 return html;
 }
-/* [CAMBIO 17] RENDER CON RELAJACIÓN PREDICTIVA (familia → subrubro → categoría) */
 function renderCatalog(withSidebar = true){
 const modalTitle = document.getElementById('modalCategoryTitle');
 const modalCount = document.getElementById('modalCategoryCount');
@@ -1042,15 +1085,10 @@ const { results: initialResults, queryFiltered, qEnt } = runSearch();
 let results = initialResults;
 let relaxMsg = '';
 const mapList = list => sortResults(list.map(e => ({ e, score: qEnt ? scoreProduct(e, qEnt) : (e.stock > 0 ? 1 : 0), compat: qEnt ? isCompatible(e, qEnt) : null })));
-if(results.length === 0 && searchState.filters.FAMILIA && searchState.filters.FAMILIA.size){
-const f2 = Object.assign({}, searchState.filters); delete f2.FAMILIA;
+if(results.length === 0 && searchState.filters.SUBCATEGORIA && searchState.filters.SUBCATEGORIA.size){
+const f2 = Object.assign({}, searchState.filters); delete f2.SUBCATEGORIA;
 const r2 = mapList(applyFilters(queryFiltered, f2));
-if(r2.length){ results = r2; relaxMsg = 'Sin coincidencias exactas en la familia seleccionada. Mostrando resultados predictivos del subrubro activo.'; }
-}
-if(results.length === 0 && searchState.filters.SUBRUBRO && searchState.filters.SUBRUBRO.size){
-const f3 = Object.assign({}, searchState.filters); delete f3.FAMILIA; delete f3.SUBRUBRO;
-const r3 = mapList(applyFilters(queryFiltered, f3));
-if(r3.length){ results = r3; relaxMsg = 'Sin coincidencias en el subrubro seleccionado. Mostrando resultados predictivos de la categoría activa.'; }
+if(r2.length){ results = r2; relaxMsg = 'Sin coincidencias exactas en la subcategoría seleccionada. Mostrando resultados predictivos de la categoría activa.'; }
 }
 if(relaxEl){
 if(relaxMsg){ relaxEl.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles mr-1"></i>' + escapeHTML(relaxMsg); relaxEl.classList.remove('hidden'); }
@@ -1058,16 +1096,14 @@ else relaxEl.classList.add('hidden');
 }
 const f = searchState.filters;
 const cat = f.CATEGORIA ? [...f.CATEGORIA][0] : null;
-const sub = f.SUBRUBRO ? [...f.SUBRUBRO][0] : null;
-const fam = f.FAMILIA ? [...f.FAMILIA][0] : null;
+const sub = f.SUBCATEGORIA ? [...f.SUBCATEGORIA][0] : null;
 const sep = '<i class="fa-solid fa-chevron-right text-gray-600 text-[9px]"></i>';
 let bc = '<button onclick="resetCatalogHome()" class="breadcrumb-btn"><i class="fa-solid fa-house text-[10px]"></i><span>Inicio</span></button>';
 if(cat) bc += sep + '<span class="breadcrumb-btn active"><i class="fa-solid fa-folder text-[10px]"></i><span>'+escapeHTML(cat)+'</span></span>';
-if(sub) bc += sep + '<span class="breadcrumb-btn active"><i class="fa-solid fa-folder-open text-[10px]"></i><span>'+escapeHTML(sub)+'</span></span>';
-if(fam) bc += sep + '<span class="breadcrumb-btn active"><i class="fa-solid fa-tags text-[10px]"></i><span>'+escapeHTML(fam)+'</span></span>';
+if(sub) bc += sep + '<span class="breadcrumb-btn active"><i class="fa-solid fa-layer-group text-[10px]"></i><span>'+escapeHTML(sub)+'</span></span>';
 if(searchState.q) bc += sep + '<span class="breadcrumb-btn active"><i class="fa-solid fa-magnifying-glass text-[10px]"></i><span>'+escapeHTML(searchState.q)+'</span></span>';
 breadcrumbBar.innerHTML = bc;
-modalTitle.textContent = searchState.q ? ('RESULTADOS: "'+searchState.q+'"') : (fam || sub || cat || 'TODOS LOS PRODUCTOS');
+modalTitle.textContent = searchState.q ? ('RESULTADOS: "'+searchState.q+'"') : (sub || cat || 'TODOS LOS PRODUCTOS');
 modalCount.innerHTML = '<i class="fa-solid fa-box mr-1"></i>'+results.length+' PRODUCTO'+(results.length!==1?'S':'')+' ENCONTRADO'+(results.length!==1?'S':'')+' DE '+queryFiltered.length;
 renderChips();
 if(withSidebar) renderSidebar(queryFiltered);
@@ -1077,8 +1113,8 @@ productsGrid.innerHTML = results.map(r => productGridCardHTML(r.e, r.compat)).jo
 function resetCatalogHome(){ searchState.q = ''; searchState.filters = {}; const si = document.getElementById('searchInput'); if(si) si.value = ''; renderCatalog(true); syncURL(true); }
 function setSearchQuery(q){ const si = document.getElementById('searchInput'); if(si) si.value = q; searchState.q = q; renderCatalog(true); syncURL(true); }
 function openCategory(catName){ searchState.q = ''; searchState.filters = { CATEGORIA: new Set([catName]) }; renderCatalog(true); showProductsModal(); syncURL(true); }
-function openSubcategory(catName, subName){ searchState.filters = { CATEGORIA: new Set([catName]), SUBRUBRO: new Set([subName]) }; renderCatalog(true); showProductsModal(); syncURL(true); }
-function openFamily(catName, subName, fam){ searchState.filters = { CATEGORIA: new Set([catName]), SUBRUBRO: new Set([subName]), FAMILIA: new Set([fam]) }; renderCatalog(true); showProductsModal(); syncURL(true); }
+function openSubcategory(catName, subName){ searchState.filters = { CATEGORIA: new Set([catName]), SUBCATEGORIA: new Set([subName]) }; renderCatalog(true); showProductsModal(); syncURL(true); }
+function openFamily(catName, subName, fam){ searchState.filters = { CATEGORIA: new Set([catName]), SUBCATEGORIA: new Set([fam]) }; renderCatalog(true); showProductsModal(); syncURL(true); }
 function showAllProductsModal(){ resetCatalogHome(); showProductsModal(); }
 function showProductsModal(){ const modal = document.getElementById('productsModal'); modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden'; }
 function closeProductsModal(){ const modal = document.getElementById('productsModal'); modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = 'auto'; }
@@ -1105,7 +1141,6 @@ const ss = document.getElementById('sortSelect'); if(ss) ss.value = searchState.
 }
 window.addEventListener('popstate', () => { parseURL(); renderCatalog(true); });
 window.addEventListener('hashchange', () => { if(!applyingHash){ parseURL(); renderCatalog(true); } });
-/* [CAMBIO 17] ÁRBOL HOME: cada subrubro incluye "Ver todos" para entrar directo a sus tarjetas */
 function renderCategoryTrees(){
 const grid = document.getElementById('categoriesGrid');
 if(!grid) return;
@@ -1186,7 +1221,7 @@ const headers = parseCSVLine(lines[0]).map(h => norm(h));
 let idxCat = findColIndex(headers, ['categoria','categor']);
 let idxSubcat = findColIndex(headers, ['subcategor','subrubro']);
 let idxFam = findColIndex(headers, ['familia','sub sub','subsub']);
-let idxMarca = findColIndex(headers, ['marca','brand']);
+let idxMarca = findColIndex(headers, ['marca','brand','marcas']);
 let idxCod = findColIndex(headers, ['codigo','cod']);
 let idxProd = findColIndex(headers, ['producto','descripcion','detalle','articulo']);
 let idxPrecio = findColIndex(headers, ['precio','price','valor']);
@@ -1279,7 +1314,7 @@ document.getElementById('pdfSubtotal').textContent = formatReceiptPrice(subtotal
 document.getElementById('pdfDiscount').textContent = '- ' + formatReceiptPrice(discount);
 document.getElementById('pdfTotalAmount').textContent = 'TOTAL FINAL COMPRA: ' + formatReceiptPrice(totalFinal);
 document.getElementById('pdfTableBody').innerHTML = CART.map(item => '<tr><td style="padding: 10px 12px; color: #333333;">'+item.qty+'x</td><td style="padding: 10px 12px; color: #333333;">'+escapeHTML(item.descripcion)+'<br><span style="font-size: 10px; color: #999999; font-family: monospace;">COD: '+escapeHTML(item.codigo)+'</span></td><td style="padding: 10px 12px; text-align: right; color: #333333;">'+formatReceiptPrice(item.precio)+'</td><td style="padding: 10px 12px; text-align: right; color: #333333; font-weight: bold;">'+formatReceiptPrice(item.precio * item.qty)+'</td></tr>').join('');
-const sepLine = '▬▬▬▬▬▬▬▬▬▬▬';
+const sepLine = '▬▬▬▬▬▬▬▬';
 const thinLine = '─────────────────────────────────────────';
 let message = '🏁 *FC RACING*\n_High Performance Off-Road Store_\n' + sepLine + '\n📅 Fecha: ' + orderDate + '\n🧾 *RECIBO OFICIAL DE COMPRA N° ' + orderNum + '*\n' + sepLine + '\n\n*DATOS DEL CLIENTE & ENVÍO:*\n👤 *Nombre y Apellido:* ' + name + '\n📍 *Ciudad y Dirección:* ' + address + '\n📧 *Correo Electrónico:* ' + email + '\n💳 *Método de Pago:* ' + payment + '\n\n🛒 *DETALLE DE PRODUCTOS:*\n*Cant*  |  *Descripción (COD)*  |  *Precio Unit.*  |  *Subtotal*\n' + thinLine + '\n';
 CART.forEach(item => { message += item.qty + 'x  |  ' + item.descripcion + ' (' + item.codigo + ')  |  ' + formatReceiptPrice(item.precio) + '  |  *' + formatReceiptPrice(item.precio * item.qty) + '*\n'; });
@@ -1304,28 +1339,33 @@ function closeDrawer(){ mobileDrawer.classList.add('-translate-x-full','pointer-
 closeMobileMenu.addEventListener('click', closeDrawer);
 drawerBackdrop.addEventListener('click', closeDrawer);
 function handleSearch(e){ e.preventDefault(); const query = document.getElementById('searchInput').value.trim(); closeAutocompleteDropdown(); searchState.q = query; renderCatalog(true); showProductsModal(); syncURL(true); }
+/* [CAMBIO 18] autocomplete con FRASES largas y MEDIDAS numéricas */
 function handleSmartAutocomplete(val){
 const dropdown = document.getElementById('autocompleteDropdown'); const clearBtn = document.getElementById('clearSearchBtn');
 const query = val.trim();
 if(clearBtn){ if(query.length > 0) clearBtn.classList.remove('hidden'); else clearBtn.classList.add('hidden'); }
 if(query.length < 1){ closeAutocompleteDropdown(); return; }
 const qNorm = norm(query);
+const phraseMatches = PHRASES.filter(ph => norm(ph).includes(qNorm)).slice(0,4);
+const measureMatches = [...INDEX_TOKEN.keys()].filter(k => k.includes('/') && /\d/.test(k) && (k.includes(qNorm) || qNorm.includes(k))).slice(0,3);
 const catMatches = [...new Set(ENRICHED.filter(p => norm(p.category).includes(qNorm)).map(p => p.category))].slice(0,3);
-const subMatches = [...new Set(ENRICHED.filter(p => norm(p.subcategory).includes(qNorm)).map(p => p.subcategory))].slice(0,3);
+const subMatches = [...new Set(ENRICHED.filter(p => norm(p.subcategory).includes(qNorm) || norm(p.familia||'').includes(qNorm)).map(p => p.familia || p.subcategory))].slice(0,3);
 const brandMatches = [...new Set(ENRICHED.filter(p => norm(p.marca).includes(qNorm)).map(p => p.marca))].slice(0,3);
 const modelMatches = [...new Set(Object.values(VEHICLE_MODELS).flat().filter(mo => norm(mo).includes(qNorm)))].slice(0,3);
 const typeMatches = Object.keys(TYPE_SYNONYMS).filter(t => norm(t).includes(qNorm) || TYPE_SYNONYMS[t].some(s => norm(s).includes(qNorm))).slice(0,3);
 const codeMatches = ENRICHED.filter(p => norm(p.codigo).replace(/[^a-z0-9]/g,'').includes(qNorm.replace(/[^a-z0-9]/g,''))).slice(0,2);
 const prodMatches = ENRICHED.filter(p => norm(p.descripcion).includes(qNorm) && !codeMatches.includes(p)).slice(0,3);
-const hasAny = catMatches.length || subMatches.length || brandMatches.length || modelMatches.length || typeMatches.length || codeMatches.length || prodMatches.length;
+const hasAny = phraseMatches.length || measureMatches.length || catMatches.length || subMatches.length || brandMatches.length || modelMatches.length || typeMatches.length || codeMatches.length || prodMatches.length;
 if(!hasAny){ dropdown.innerHTML = '<div class="p-4 text-center text-xs text-gray-400"><i class="fa-solid fa-magnifying-glass-minus text-brand-red text-base mb-1 block"></i>No se encontraron coincidencias para "<span class="text-white font-semibold">' + escapeHTML(query) + '</span>"</div>'; }
 else {
 let html = '';
 const highlightMatch = (text,q) => { const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','gi'); return escapeHTML(text).replace(re,'<mark>$1</mark>'); };
+if(phraseMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-quote-left mr-1"></i> Frases sugeridas</div>' + phraseMatches.map(ph => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(ph)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(ph,query)+'</span></div></div>').join(''); }
+if(measureMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-ruler mr-1"></i> Medidas</div>' + measureMatches.map(k => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(k)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-hashtag text-cyan-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(k,query)+'</span></div></div>').join(''); }
 if(typeMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-gears mr-1"></i> Tipos de pieza</div>' + typeMatches.map(t => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(t)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-gears text-brand-red text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(t,query)+'</span></div></div>').join(''); }
 if(modelMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-motorcycle mr-1"></i> Modelos de moto</div>' + modelMatches.map(mo => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(mo)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-motorcycle text-cyan-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(mo,query)+'</span></div></div>').join(''); }
 if(catMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-folder mr-1"></i> Categorías</div>' + catMatches.map(c => '<div class="ac-suggestion" onclick="selectAutocompleteCategory(\''+escapeAttr(c)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-folder text-brand-red text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(c,query)+'</span></div><span class="text-[10px] text-gray-500">'+ENRICHED.filter(p => p.category === c).length+' prod.</span></div>').join(''); }
-if(subMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-layer-group mr-1"></i> Subrubros</div>' + subMatches.map(s => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(s)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-blue-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(s,query)+'</span></div></div>').join(''); }
+if(subMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-layer-group mr-1"></i> Subcategorías</div>' + subMatches.map(s => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(s)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-blue-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(s,query)+'</span></div></div>').join(''); }
 if(brandMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-certificate mr-1"></i> Marcas</div>' + brandMatches.map(b => '<div class="ac-suggestion" onclick="selectAutocompleteText(\''+escapeAttr(b)+'\')"><div class="flex items-center gap-2"><i class="fa-solid fa-tag text-emerald-400 text-xs"></i><span class="text-white font-semibold text-sm">'+highlightMatch(b,query)+'</span></div></div>').join(''); }
 if(codeMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-barcode mr-1"></i> Códigos / OEM</div>' + codeMatches.map(p => '<div class="ac-suggestion" onclick="selectAutocompleteItem(\''+escapeAttr(p.codigo)+'\')"><div class="flex items-center gap-2 min-w-0"><span class="bg-brand-red/20 text-brand-red border border-brand-red/40 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded shrink-0">COD: '+escapeHTML(p.codigo)+'</span><span class="text-white text-sm truncate">'+highlightMatch(p.descripcion,query)+'</span></div><span class="font-racing font-bold text-xs text-white shrink-0">'+formatPrice(p.precio)+'</span></div>').join(''); }
 if(prodMatches.length){ html += '<div class="ac-group-title"><i class="fa-solid fa-box mr-1"></i> Productos</div>' + prodMatches.map(p => '<div class="ac-suggestion" onclick="selectAutocompleteItem(\''+escapeAttr(p.codigo)+'\')"><div class="flex items-center gap-2 min-w-0"><img src="'+p.imagen+'" onerror="this.src=\''+FALLBACK_IMG+'\'" class="w-8 h-8 object-cover rounded border border-brand-border shrink-0"><div class="min-w-0"><div class="text-white text-sm font-semibold truncate">'+highlightMatch(p.descripcion,query)+'</div><div class="text-[10px] text-gray-400">'+escapeHTML(p.category)+' • '+escapeHTML(p.marca)+'</div></div></div><span class="font-racing font-bold text-xs text-white shrink-0">'+formatPrice(p.precio)+'</span></div>').join(''); }
